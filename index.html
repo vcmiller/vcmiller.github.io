@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script src="graphics.js"></script>
+    <script src="board.js"></script>
+    <script src="letters.js"></script>
+    <script>
+      var game;
+      var board;
+      var startButton;
+      var scoreCounter;
+
+      var dict;
+
+      function loadDictionary() {
+        dict = { };
+
+        var dictFrame = document.getElementById("dictFile");
+        var dictRaw = dictFrame.contentWindow.document.body.childNodes[0].innerHTML;
+        var lines = dictRaw.split('\n');
+        for (var i = 0; i < lines.length; i++) {
+          var line = lines[i].trim();
+          if (line.length > 2) {
+            dict[line] = true;
+          }
+        }
+      }
+
+      function initGameArea() {
+        startButton = document.getElementById("startButton");
+        game = new Game(document.getElementById("gameCanvas"), 500, init, update, render);
+        scoreCounter = document.getElementById("scoreCounter");
+        window.onkeydown = keyup;
+        game.run();
+
+        startButton.onclick = stopGame;
+        startButton.innerHTML = "Stop Game";
+      }
+
+      function stopGame() {
+        game.stop();
+
+        startButton.onclick = initGameArea;
+        startButton.innerHTML = "Start Game";
+      }
+
+      function init() {
+        board = new Board(16, 8, 32);
+        board.addTile(0, 0, "A", "blue");
+      }
+
+      function update() {
+        board.update();
+        scoreCounter.innerHTML = "Score: " + board.score;
+
+        if (board.lost) {
+          stopGame();
+        }
+      }
+
+      function render() {
+        board.render(game);
+      }
+
+      function keyup(e) {
+        var key = e.keyCode ? e.keyCode : e.which;
+
+        if (key == 37) {
+          board.moveActive(-1);
+        } else if (key == 39) {
+          board.moveActive(1);
+        } else if (key == 32) {
+          board.dropActive();
+        }
+
+
+        game._clear();
+        game.renderFunc();
+      }
+
+    </script>
+
+    <iframe id="dictFile" src="dict8.txt" onload="loadDictionary();" style="display: none;"></iframe>
+    <h1>Word Tetris</h1>
+
+    <button type="button" onclick="initGameArea()" id="startButton">Start Game</button>
+    <p id="scoreCounter">Score: 0</p>
+    <canvas id="gameCanvas" width="256" height="512" style="border:1px solid black">
+
+
+  </body>
+</html>
