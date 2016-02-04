@@ -13,6 +13,8 @@ function Board(rows, cols, tile_w, board_x, board_y, tiles) {
   this.tiles = tiles;
   this.store = null;
 
+  this.lastWord = "";
+
   for (var i = 0; i < 5; i++) {
     this.queue.push({ letter : randLetter(this.letters), color : randColor(this.colors) });
   }
@@ -74,6 +76,7 @@ Board.prototype.word = function(row, col, toRemove) {
 
     word += this.getLetter(row, i).toLowerCase();
     if (dict[word]) {
+      this.lastWord = word;
       for (var j = col; j <= i; j++) {
         score += letters[this.getLetter(row, j).toLowerCase()];
         toRemove.push({ row : row, col : j });
@@ -89,6 +92,7 @@ Board.prototype.word = function(row, col, toRemove) {
 
     word += this.getLetter(i, col).toLowerCase();
     if (dict[word]) {
+      this.lastWord = word;
       for (var j = row; j <= i; j++) {
         score += letters[this.getLetter(j, col).toLowerCase()];
         toRemove.push({ row : j, col : col });
@@ -150,7 +154,7 @@ Board.prototype.renderLetter = function(letter, color, x, y, game) {
   game.context.drawImage(this.tiles[color], x, y);
   game.context.fillStyle = "black";
   game.context.font = "30px Arial"
-  game.context.fillText(letter, x + 6, y + 24);
+  game.context.fillText(letter, x + 8, y + 28);
 }
 
 Board.prototype.renderTile = function(row, col, game) {
@@ -210,6 +214,8 @@ Board.prototype.render = function(game) {
   game.context.font = "30px Arial"
 
   game.context.fillText("SCORE: " + this.score, this.board_x + 5, this.board_y - this.tile_w - 4);
+  game.context.font = "24px Arial"
+  game.context.fillText("LAST: " + this.lastWord.toUpperCase(), this.board_x + 5, this.board_y + (this.rows + 1) * this.tile_w + 25);
 }
 
 Board.prototype.getActive = function() {
