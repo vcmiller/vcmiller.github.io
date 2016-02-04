@@ -6,6 +6,14 @@ function Board(rows, cols, tile_w) {
   this.letters = "AAAAAAAAABBCCDDDDEEEEEEEEEFFGGGHHIIIIIIIIIJKLLLLMMNNNNNNOOOOOOOOPPQRRRRRRSSSSTTTTTTUUUUVVWWXYYZ";
   this.score = 0;
   this.lost = false;
+  this.canSwap = true;
+  this.queue = [];
+
+  this.store = null;
+
+  for (var i = 0; i < 5; i++) {
+    this.queue.push({ letter : randLetter(this.letters), color : randColor(this.colors) });
+  }
 
   this.contents = [];
   for (var i = 0; i < rows * cols; i++) {
@@ -105,15 +113,17 @@ Board.prototype.checkWords = function() {
 }
 
 Board.prototype.dropRandom = function() {
-  var letter = this.letters.substr(randInt(this.letters.length), 1);
-  var color = this.colors[randInt(this.colors.length)];
+  var next = this.queue.shift();
   var col = randInt(this.cols);
 
   if (!this.filled(0, col)) {
-    this.addTile(0, col, letter, color);
+    this.addTile(0, col, next.letter, next.color);
   } else {
     this.lost = true;
   }
+
+  this.canSwap = true;
+  this.queue.push({ letter : randLetter(this.letters), color : randColor(this.colors) });
 }
 
 Board.prototype.updateTile = function(row, col) {
@@ -133,6 +143,15 @@ Board.prototype.updateTile = function(row, col) {
   return drop;
 }
 
+Board.prototype.renderLetter = function(letter, color, x, y, game) {
+  game.context.globalAlpha = 1.0;
+  game.context.fillStyle = color;
+  game.context.fillRect(x, y, this.tile_w, this.tile_w);
+  game.context.fillStyle = "black";
+  game.context.font = "30px Ariel"
+  game.context.fillText(letter, x + 6, y + 24);
+}
+
 Board.prototype.renderTile = function(row, col, game) {
   if (this.filled(row, col)) {
     var item = this.getItem(row, col);
@@ -146,13 +165,7 @@ Board.prototype.renderTile = function(row, col, game) {
       game.context.fillRect(x, r * this.tile_w, this.tile_w, this.tile_w);
     }
 
-    game.context.globalAlpha = 1.0;
-    game.context.fillStyle = item.color;
-    game.context.fillRect(x, y, this.tile_w, this.tile_w);
-    game.context.fillStyle = "black";
-    game.context.font = "30px Ariel"
-    game.context.fillText(item.letter, x + 6, y + 24);
-
+    this.renderLetter(item.letter, item.color, x, y, game);
   }
 }
 
@@ -177,33 +190,72 @@ Board.prototype.render = function(game) {
       this.renderTile(row, col, game);
     }
   }
+
+  for (var i = 0; i < this.queue.length; i++) {
+    var x = this.tile_w * (this.cols + 0.5);
+    var y = this.tile_w * (i * 2 + 3);
+
+    this.renderLetter(this.queue[i].letter, this.queue[i].color, x, y, game);
+  }
+
+  var x = this.tile_w * (this.cols + 0.5);
+  var y = this.tile_w * 1;
+
+  game.context.fillStyle = "#333333";
+  game.context.fillRect(x - 8, y - 8, this.tile_w + 16, this.tile_w + 16);
+  if (this.store) {
+    this.renderLetter(this.store.letter, this.store.color, x, y, game);
+  }
+}
+
+Board.prototype.getActive = function() {
+  for (var row = this.rows - 1; row >= 0; row--) {
+    for (var col = 0; col < this.cols; col++) {
+      var item = this.getItem(row, col);
+      if (item != null && item.active) {
+        return { row : row, col : col, letter : item.letter, color : item.color };
+      }
+    }
+  }
+}
+
+Board.prototype.swap = function() {
+  if (this.canSwap) {
+    var active = this.getActive();
+    this.setItem(active.row, active.col, null);
+    if (this.store == null) {
+      this.dropRandom();
+    } else {
+      var col = randInt(this.cols);
+      this.addTile(0, col, this.store.letter, this.store.color);
+    }
+
+    this.store = { letter : active.letter, color : active.color };
+    this.canSwap = false;
+  }
 }
 
 Board.prototype.moveActive = function(amount) {
-  for (var row = this.rows - 1; row >= 0; row--) {
-    for (var col = 0; col < this.cols; col++) {
-      if (this.filled(row, col) && this.getItem(row, col).active) {
-        var nc = col + amount;
-        if (nc >= 0 && nc < this.cols && !this.filled(row, nc)) {
-          this.moveItem(row, col, row, nc);
-          return;
-        }
-      }
-    }
+  var active = this.getActive();
+  var nc = active.col + amount;
+  if (nc >= 0 && nc < this.cols && !this.filled(active.row, nc)) {
+    this.moveItem(active.row, active.col, active.row, nc);
   }
 }
 
 Board.prototype.dropActive = function() {
-  for (var row = this.rows - 1; row >= 0; row--) {
-    for (var col = 0; col < this.cols; col++) {
-      if (this.filled(row, col) && this.getItem(row, col).active) {
-        this.getItem(row, col).active = false;
-        this.moveItem(row, col, this.getLowestSpace(row, col), col);
-        this.dropRandom();
-        return;
-      }
-    }
-  }
+  var active = this.getActive();
+  this.getItem(active.row, active.col).active = false;
+  this.moveItem(active.row, active.col, this.getLowestSpace(active.row, active.col), active.col);
+  this.dropRandom();
+}
+
+function randLetter(s) {
+  return s.substr(randInt(s.length), 1)
+}
+
+function randColor(l) {
+  return l[randInt(l.length)];
 }
 
 function randInt(max) {

@@ -9,6 +9,7 @@
       var board;
       var startButton;
       var scoreCounter;
+      var bgimg;
 
       var dict;
 
@@ -30,6 +31,7 @@
         startButton = document.getElementById("startButton");
         game = new Game(document.getElementById("gameCanvas"), 500, init, update, render);
         scoreCounter = document.getElementById("scoreCounter");
+        bgimg = document.getElementById("bgimg");
         window.onkeydown = keyup;
         game.run();
 
@@ -59,6 +61,7 @@
       }
 
       function render() {
+        game.context.drawImage(bgimg, 0, 0);
         board.render(game);
       }
 
@@ -71,6 +74,8 @@
           board.moveActive(1);
         } else if (key == 32) {
           board.dropActive();
+        } else if (key == 16) {
+          board.swap();
         }
 
 
@@ -81,11 +86,12 @@
     </script>
 
     <iframe id="dictFile" src="dict8.txt" onload="loadDictionary();" style="display: none;"></iframe>
+    <img id="bgimg" src="board.png" style="display: none;">
     <h1>Word Tetris</h1>
 
     <button type="button" onclick="initGameArea()" id="startButton">Start Game</button>
     <p id="scoreCounter">Score: 0</p>
-    <canvas id="gameCanvas" width="256" height="512" style="border:1px solid black">
+    <canvas id="gameCanvas" width="320" height="512" style="border: 1px solid black;">
 
 
   </body>
