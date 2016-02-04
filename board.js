@@ -66,7 +66,7 @@ Board.prototype.word = function(row, col, toRemove) {
   var word = "";
   var score = 0;
   for (var i = col; i < this.cols; i++) {
-    if (!this.filled(row, i) || this.getItem(row, i).active) {
+    if (!this.filled(row, i) || this.getItem(row, i).active || (row < this.rows - 1 && !this.filled(row + 1, i))) {
       break;
     }
 
@@ -170,14 +170,14 @@ Board.prototype.renderTile = function(row, col, game) {
 }
 
 Board.prototype.update = function() {
+  this.checkWords();
+
   var drop = false;
   for (var row = this.rows - 1; row >= 0; row--) {
     for (var col = 0; col < this.cols; col++) {
       drop = drop || this.updateTile(row, col);
     }
   }
-
-  this.checkWords();
 
   if (drop) {
     this.dropRandom();
@@ -246,7 +246,9 @@ Board.prototype.moveActive = function(amount) {
 Board.prototype.dropActive = function() {
   var active = this.getActive();
   this.getItem(active.row, active.col).active = false;
-  this.moveItem(active.row, active.col, this.getLowestSpace(active.row, active.col), active.col);
+  if (active.row < this.rows - 1 && !this.filled(active.row + 1, active.col)) {
+    this.moveItem(active.row, active.col, this.getLowestSpace(active.row, active.col), active.col);
+  }
   this.dropRandom();
 }
 

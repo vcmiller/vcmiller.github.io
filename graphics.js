@@ -16,9 +16,13 @@ Game.prototype._clear = function() {
 
 Game.prototype._update = function() {
   this.updateFunc();
+  this.forceRender();
+};
+
+Game.prototype.forceRender = function() {
   this._clear();
   this.renderFunc();
-};
+}
 
 Game.prototype.run = function() {
   this.startFunc();
