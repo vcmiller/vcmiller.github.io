@@ -30,7 +30,7 @@
         game = new Game(document.getElementById("gameCanvas"), 500, init, update, render);
         scoreCounter = document.getElementById("scoreCounter");
         bgimg = document.getElementById("bgimg");
-        window.onkeydown = keyup;
+        window.onkeydown = keydown;
 
         game.forceRender();
       }
