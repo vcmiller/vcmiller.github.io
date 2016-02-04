@@ -4,6 +4,7 @@
     <script src="graphics.js"></script>
     <script src="board.js"></script>
     <script src="letters.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script>
       var game;
       var board;
@@ -11,6 +12,8 @@
       var bgimg;
       var running = false;
       var dict;
+
+      var tiles;
 
       function loadDictionary() {
         dict = { };
@@ -30,6 +33,13 @@
         game = new Game(document.getElementById("gameCanvas"), 500, init, update, render);
         scoreCounter = document.getElementById("scoreCounter");
         bgimg = document.getElementById("bgimg");
+        tiles = { };
+
+        tiles["red"] = document.getElementById("tile_red");
+        tiles["green"] = document.getElementById("tile_green");
+        tiles["blue"] = document.getElementById("tile_blue");
+        tiles["yellow"] = document.getElementById("tile_yellow");
+
         window.onkeydown = keydown;
 
         game.forceRender();
@@ -45,14 +55,13 @@
       }
 
       function init() {
-        board = new Board(16, 8, 32);
+        board = new Board(16, 8, 40, 120, 100, tiles);
         board.addTile(0, 0, "A", "blue");
         running = true;
       }
 
       function update() {
         board.update();
-        scoreCounter.innerHTML = "Score: " + board.score;
 
         if (board.lost) {
           running = false;
@@ -65,7 +74,7 @@
           board.render(game);
         } else {
           game.context.fillStyle = "blue";
-          game.context.font = "48px Ariel"
+          game.context.font = "48px Arial"
           game.context.fillText("Press Space", 45, 256);
         }
       }
@@ -103,10 +112,12 @@
 
     <iframe id="dictFile" src="dict8.txt" onload="loadDictionary();" style="display: none;"></iframe>
     <img id="bgimg" src="board.png" style="display: none;">
-    <h1>Word Tetris</h1>
+    <img id="tile_red" src="tile_red.png" style="display: none;">
+    <img id="tile_green" src="tile_green.png" style="display: none;">
+    <img id="tile_blue" src="tile_blue.png" style="display: none;">
+    <img id="tile_yellow" src="tile_yellow.png" style="display: none;">
 
-    <p id="scoreCounter">Score: 0</p>
-    <canvas id="gameCanvas" width="320" height="512" style="border: 1px solid black;">
+    <canvas id="gameCanvas" width="560" height="840" style="border: none;">
 
 
   </body>

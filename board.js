@@ -1,14 +1,16 @@
-function Board(rows, cols, tile_w) {
+function Board(rows, cols, tile_w, board_x, board_y, tiles) {
   this.rows = rows;
   this.cols = cols;
   this.tile_w = tile_w;
+  this.board_x = board_x;
+  this.board_y = board_y;
   this.colors = ["red", "blue", "green", "yellow"];
   this.letters = "AAAAAAAAABBCCDDDDEEEEEEEEEFFGGGHHIIIIIIIIIJKLLLLMMNNNNNNOOOOOOOOPPQRRRRRRSSSSTTTTTTUUUUVVWWXYYZ";
   this.score = 0;
   this.lost = false;
   this.canSwap = true;
   this.queue = [];
-
+  this.tiles = tiles;
   this.store = null;
 
   for (var i = 0; i < 5; i++) {
@@ -145,24 +147,23 @@ Board.prototype.updateTile = function(row, col) {
 
 Board.prototype.renderLetter = function(letter, color, x, y, game) {
   game.context.globalAlpha = 1.0;
-  game.context.fillStyle = color;
-  game.context.fillRect(x, y, this.tile_w, this.tile_w);
+  game.context.drawImage(this.tiles[color], x, y);
   game.context.fillStyle = "black";
-  game.context.font = "30px Ariel"
+  game.context.font = "30px Arial"
   game.context.fillText(letter, x + 6, y + 24);
 }
 
 Board.prototype.renderTile = function(row, col, game) {
   if (this.filled(row, col)) {
     var item = this.getItem(row, col);
-    var x = col * this.tile_w;
-    var y = row * this.tile_w
+    var x = this.board_x + col * this.tile_w;
+    var y = this.board_y + row * this.tile_w
 
     if (item.active) {
       var r = this.getLowestSpace(row, col);
-      game.context.fillStyle = item.color;
       game.context.globalAlpha = 0.4;
-      game.context.fillRect(x, r * this.tile_w, this.tile_w, this.tile_w);
+      var ny = this.board_y + r * this.tile_w;
+      game.context.drawImage(this.tiles[item.color], x, ny);
     }
 
     this.renderLetter(item.letter, item.color, x, y, game);
@@ -192,20 +193,23 @@ Board.prototype.render = function(game) {
   }
 
   for (var i = 0; i < this.queue.length; i++) {
-    var x = this.tile_w * (this.cols + 0.5);
-    var y = this.tile_w * (i * 2 + 3);
+    var x = this.board_x + this.tile_w * (this.cols + 1);
+    var y = this.board_y + this.tile_w * (i > 0 ? i + 1 : i);
 
     this.renderLetter(this.queue[i].letter, this.queue[i].color, x, y, game);
   }
 
-  var x = this.tile_w * (this.cols + 0.5);
-  var y = this.tile_w * 1;
+  var x = this.board_x - this.tile_w * 2;
+  var y = this.board_y;
 
-  game.context.fillStyle = "#333333";
-  game.context.fillRect(x - 8, y - 8, this.tile_w + 16, this.tile_w + 16);
   if (this.store) {
     this.renderLetter(this.store.letter, this.store.color, x, y, game);
   }
+
+  game.context.fillStyle = "#383737";
+  game.context.font = "30px Arial"
+
+  game.context.fillText("SCORE: " + this.score, this.board_x + 5, this.board_y - this.tile_w - 4);
 }
 
 Board.prototype.getActive = function() {
