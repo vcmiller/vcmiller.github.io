@@ -37,16 +37,17 @@
 
       function startGame() {
         game.run();
-        running = true;
       }
 
       function stopGame() {
         game.stop();
+        running = false;
       }
 
       function init() {
         board = new Board(16, 8, 32);
         board.addTile(0, 0, "A", "blue");
+        running = true;
       }
 
       function update() {
@@ -54,13 +55,13 @@
         scoreCounter.innerHTML = "Score: " + board.score;
 
         if (board.lost) {
-          stopGame();
+          running = false;
         }
       }
 
       function render() {
         game.context.drawImage(bgimg, 0, 0);
-        if (running) {
+        if (running      ) {
           board.render(game);
         } else {
           game.context.fillStyle = "blue";
@@ -84,8 +85,12 @@
           } else if (key == 82) {
             init();
           }
-        } else {
-          startGame();
+        } else if (key == 32) {
+          if (board) {
+            init();
+          } else {
+            startGame();
+          }
         }
 
 
