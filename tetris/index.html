@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script src="graphics.js"></script>
+    <script src="board.js"></script>
+    <script src="letters.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script>
+      var game;
+      var board;
+      var scoreCounter;
+      var bgimg;
+      var running = false;
+      var dict;
+
+      var tiles;
+
+      function loadDictionary() {
+        dict = { };
+
+        var dictFrame = document.getElementById("dictFile");
+        var dictRaw = dictFrame.contentWindow.document.body.childNodes[0].innerHTML;
+        var lines = dictRaw.split('\n');
+        for (var i = 0; i < lines.length; i++) {
+          var line = lines[i].trim();
+          if (line.length > 2) {
+            dict[line] = true;
+          }
+        }
+      }
+
+      function initGameArea() {
+        game = new Game(document.getElementById("gameCanvas"), 500, init, update, render);
+        scoreCounter = document.getElementById("scoreCounter");
+        bgimg = document.getElementById("bgimg");
+        tiles = { };
+
+        tiles["red"] = document.getElementById("tile_red");
+        tiles["green"] = document.getElementById("tile_green");
+        tiles["blue"] = document.getElementById("tile_blue");
+        tiles["yellow"] = document.getElementById("tile_yellow");
+
+        window.onkeydown = keydown;
+
+        game.forceRender();
+      }
+
+      function startGame() {
+        game.run();
+      }
+
+      function stopGame() {
+        game.stop();
+        running = false;
+      }
+
+      function init() {
+        board = new Board(16, 8, 40, 120, 100, tiles);
+        board.addTile(0, 0, "A", "blue");
+        running = true;
+      }
+
+      function update() {
+        board.update();
+
+        if (board.lost) {
+          running = false;
+        }
+      }
+
+      function render() {
+        game.context.drawImage(bgimg, 0, 0);
+        if (running      ) {
+          board.render(game);
+        } else {
+          game.context.fillStyle = "#383737";
+          game.context.font = "30px Arial"
+
+          game.context.fillText("SPACE TO START", 125, 56);
+        }
+      }
+
+      function keydown(e) {
+        var key = e.keyCode ? e.keyCode : e.which;
+
+        if (running) {
+          if (key == 37 || key == 65) {
+            board.moveActive(-1);
+          } else if (key == 39 || key == 68) {
+            board.moveActive(1);
+          } else if (key == 32) {
+            board.dropActive();
+          } else if (key == 16) {
+            board.swap();
+          } else if (key == 82) {
+            init();
+          }
+        } else if (key == 32) {
+          if (board) {
+            init();
+          } else {
+            startGame();
+          }
+        }
+
+
+        game.forceRender();
+      }
+
+      window.onload = initGameArea;
+
+    </script>
+
+    <iframe id="dictFile" src="dict8.txt" onload="loadDictionary();" style="display: none;"></iframe>
+    <img id="bgimg" src="board.png" style="display: none;">
+    <img id="tile_red" src="tile_red.png" style="display: none;">
+    <img id="tile_green" src="tile_green.png" style="display: none;">
+    <img id="tile_blue" src="tile_blue.png" style="display: none;">
+    <img id="tile_yellow" src="tile_yellow.png" style="display: none;">
+
+    <canvas id="gameCanvas" width="560" height="840" style="border: none;">
+
+
+  </body>
+</html>
