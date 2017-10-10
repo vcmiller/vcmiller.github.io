@@ -1,7 +1,0 @@
-if ((x % 32 == 0 || y % 32 == 0) && x <= 256) {
-	return Color.BLACK;
-} else if (y == 0 || y == 511 || x == 319) {
-	return Color.BLACK;
-} else {
-	return Color.GRAY;
-}
