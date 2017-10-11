@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
-<title>About - Vincent Miller's Portfolio</title>
+<title>Game Jam Proejects - Vincent Miller's Portfolio</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -14,14 +14,14 @@
         font-size: 16px;
     }
 
-    .w3-half img {
+    .w3-third img {
         margin-bottom: -6px;
         margin-top: 16px;
         opacity: 1;
         cursor: pointer
     }
 
-        .w3-half img:hover {
+        .w3-third img:hover {
             opacity: 0.8
         }
 </style>
@@ -32,7 +32,7 @@
         <br>
         <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
         <div class="w3-container">
-            <h2 class="w3-padding-64"><b>Vincent Miller</b></h3>
+            <h2 class="w3-padding-64"><b>Vincent Miller</b></h2>
         </div>
         <div class="w3-bar-block">
             <a href="index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
@@ -63,40 +63,40 @@
 
         <!-- Header -->
         <div class="w3-container" style="margin-top:80px" id="showcase">
-            <h1 class="w3-jumbo"><b>About Me</b></h1>
-            <img src="images/photo.jpg" class="w3-round" style="width:500px">
+            <h1 class="w3-jumbo"><b>Game Jam Projects</b></h1>
+            <hr style="width:50px;border:5px solid red" class="w3-round">
+            <p>I've done many game jams and hackathons, and helped run several jams as vice president of WPI's Game Development Club.</p>
+            <p>Here are a few examples of games I've made during these events, either on my own or on a small team.</p>
+            <hr style="width:50px;border:5px solid red" class="w3-round">
         </div>
 
-        <!-- Summary -->
-        <div class="w3-container" id="summary" style="margin-top:75px">
-            <h1 class="w3-xxxlarge w3-text-red"><b>Summary</b></h1>
-            <hr style="width:50px;border:5px solid red" class="w3-round">
-            <ul>
-                <li>Student at <a href="https://www.wpi.edu/">Worcester Polytechnic Institute</a></li>
-                <li>
-                    Majoring in <a href="https://www.wpi.edu/academics/departments/interactive-media-game-development">Interactive Media and Game Development</a>
-                    and <a href="https://www.wpi.edu/academics/departments/computer-science">Computer Science</a>
-                </li>
-
-            </ul>
-        </div>
-
-        <!-- Links -->
-        <div class="w3-container" id="links" style="margin-top:75px">
-            <h1 class="w3-xxxlarge w3-text-red"><b>Links</b></h1>
-            <hr style="width:50px;border:5px solid red" class="w3-round">
-            <p>Links to external sites:</p>
-            <ul>
-                <li><a href="https://www.linkedin.com/in/vcmiller/">LinkedIn Profile</a></li>
-                <li><a href="https://github.com/vcmiller/">GitHub Profile</a></li>
-                <li><a href="https://bitbucket.org/vincent_miller/">BitBucket Profile</a></li>
-                <li><a href="https://gamejolt.com/@vincent_miller">GameJolt Page</a></li>
-            </ul>
-            <p>Email:</p>
-            <ul>
-                <li><a href="mailto:vmiller0725@gmail.com">vmiller0725@gmail.com</a></li>
-                <li><a href="mailto:vcmiller@wpi.edu">vcmiller@wpi.edu</a></li>
-            </ul>
+        <!-- Photo grid (modal) -->
+        <div class="w3-row-padding">
+            
+            <div class="w3-third">
+                <a href="jams/vladimir.html">
+                    <div class="w3-display-container">
+                        <img src="images/thumbs/vladimir.png" style="width:100%">
+                        <div class="w3-display-middle w3-large w3-center" style="text-shadow:2px 2px 0 #000">
+                            <h1 class="w3-xxxlarge w3-text-light-gray" style="opacity:0.8">VLADIMIR THE CHERNOBYL REINDEER</h1>
+                            <br />
+                            <h4 class="w3-text-light-gray" style="opacity:0.8">A 2D Action Platformer</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="w3-third">
+                <a href="jams/immersion.html">
+                    <div class="w3-display-container">
+                        <img src="images/thumbs/immersion.png" style="width:100%">
+                        <div class="w3-display-middle w3-large w3-center" style="text-shadow:2px 2px 0 #000">
+                            <h1 class="w3-xxxlarge w3-text-light-gray" style="opacity:0.8">TOTAL IMMERSION</h1>
+                            <br />
+                            <h4 class="w3-text-light-gray" style="opacity:0.8">A Stealth Zombie Game</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
 
         <!-- End page content -->
