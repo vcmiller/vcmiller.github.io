@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html>
+<title>Arduino Control - Vincent Miller's Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<style>
+    body, h1, h2, h3, h4, h5 {
+        font-family: "Poppins", sans-serif
+    }
+
+    body {
+        font-size: 16px;
+    }
+
+    .w3-half img {
+        margin-bottom: -6px;
+        margin-top: 16px;
+        opacity: 1;
+        cursor: pointer
+    }
+
+        .w3-half img:hover {
+            opacity: 0.8
+        }
+
+    .w3-light-grey img {
+        opacity: 0.8;
+        cursor: pointer
+    }
+
+        .w3-light-grey img:hover {
+            opacity: 0.5
+        }
+</style>
+<body>
+
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar">
+        <br>
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+        <div class="w3-container">
+            <h2 class="w3-padding-64"><b>Vincent Miller</b></h2>
+        </div>
+        <div class="w3-bar-block">
+            <a href="../index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+            <a href="../about.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">About Me</a>
+            <div class="w3-dropdown-hover">
+                <button class="w3-button">Projects <i class="fa fa-caret-down"></i></button>
+                <div class="w3-dropdown-content w3-bar-block">
+                    <a href="../class.html" class="w3-bar-item w3-button">Class</a>
+                    <a href="../personal.html" class="w3-bar-item w3-button">Personal</a>
+                    <a href="../jams.html" class="w3-bar-item w3-button">Game Jams</a>
+                </div>
+            </div>
+            <a href="../playable.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Playable Games</a>
+        </div>
+    </nav>
+
+    <!-- Top menu on small screens -->
+    <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+        <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">?</a>
+        <span>Vincent Miller</span>
+    </header>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+        <!-- Header -->
+        <div class="w3-container" style="margin-top:80px" id="showcase">
+            <h1 class="w3-jumbo"><b>Accelerometer-Controlled Gravity</b></h1>
+            <h1 class="w3-xxxlarge w3-text-red"><b>Overview</b></h1>
+            <hr style="width:50px;border:5px solid red" class="w3-round">
+            <p>
+                <b>Description: </b>
+                A 2D platformer/action game where the player controls gravity by rotating an accelerometer. Other actions (movement and attacking) are done through conventional input.
+                Measurements from the accelerometer are collected by an Arduino, which is connected to the computer via USB. In my Arduino code, I simply read the values and send them.
+                In the game, a serial connection is opened, through which the accelerometer values are read. To make sure the controls are easy to use, other input is done via a joystick
+                shield attached to the Arduino. Values from this device are sent alongside the accelerometer values.
+            </p>
+            <p>
+                <b>Links: </b>
+                I am unable to provide the source for the engine, in accordance with WPI's policy on sharing source code for projects.
+                Additionally, since this project requires an Arduino with my specific setup and code, providing an executable would be pointless.
+            </p>
+            <p>
+                <b>Team: </b>
+                This was an entirely solo project.
+            </p>
+            <p>
+                <b>Technologies Used: </b>
+                <ul>
+                    <li>Unity (with .NET serial and threading libraries)</li>
+                    <li>Arduino Uno</li>
+                    <li>ADXL335 Accelerometer</li>
+                    <li>SparkFun Joystick Shield</li>
+                </ul>
+            </p>
+            <p>
+                <b>Class: </b>
+                Novel Interfaces for Interactive Environments (IMGD 3100)
+            </p>
+            <p>
+                <b>Assignment Requirements: </b>
+                This assignment was very open ended. We created various Arduino-based input devices throughout the term, and this project was meant to show what we learned.
+            </p>
+        
+            <h1 class="w3-xxxlarge w3-text-red"><b>Demo Video</b></h1>
+            <hr style="width:50px;border:5px solid red" class="w3-round">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/Sv_iwkQ5i7c?rel=0" frameborder="0" allowfullscreen></iframe>
+         </div>
+
+        <!-- Photo grid (modal) -->
+        <div class="w3-row-padding">
+            <div class="w3-half">
+                <img src="../images/screenshots/gravity1.png" style="width:100%" onclick="onClick(this)" alt="The game I used as a demo">
+                <img src="../images/screenshots/gravity2.png" style="width:100%" onclick="onClick(this)" alt="The Arduino / Joystick / Accelerometer device">
+            </div>
+
+            <div class="w3-half">
+                <img src="../images/screenshots/gravity3.png" style="width:100%" onclick="onClick(this)" alt="A schematic of the device">
+            </div>
+        </div>
+
+        <!-- Modal for full size images on click-->
+        <div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
+            <span class="w3-button w3-black w3-xxlarge w3-display-topright">X</span>
+            <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+                <img id="img01" class="w3-image">
+                <p id="caption"></p>
+            </div>
+        </div>
+
+        <!-- End page content -->
+    </div>
+
+    <!-- W3.CSS Container -->
+    <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></p></div>
+
+    <script>
+// Script to open and close sidebar
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+    </script>
+
+</body>
+</html>

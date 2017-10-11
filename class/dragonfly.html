@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html>
+<title>Dragonfly Engine - Vincent Miller's Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<style>
+    body, h1, h2, h3, h4, h5 {
+        font-family: "Poppins", sans-serif
+    }
+
+    body {
+        font-size: 16px;
+    }
+
+    .w3-half img {
+        margin-bottom: -6px;
+        margin-top: 16px;
+        opacity: 1;
+        cursor: pointer
+    }
+
+        .w3-half img:hover {
+            opacity: 0.8
+        }
+
+    .w3-light-grey img {
+        opacity: 0.8;
+        cursor: pointer
+    }
+
+        .w3-light-grey img:hover {
+            opacity: 0.5
+        }
+</style>
+<body>
+
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar">
+        <br>
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+        <div class="w3-container">
+            <h2 class="w3-padding-64"><b>Vincent Miller</b></h2>
+        </div>
+        <div class="w3-bar-block">
+            <a href="../index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+            <a href="../about.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">About Me</a>
+            <div class="w3-dropdown-hover">
+                <button class="w3-button">Projects <i class="fa fa-caret-down"></i></button>
+                <div class="w3-dropdown-content w3-bar-block">
+                    <a href="../class.html" class="w3-bar-item w3-button">Class</a>
+                    <a href="../personal.html" class="w3-bar-item w3-button">Personal</a>
+                    <a href="../jams.html" class="w3-bar-item w3-button">Game Jams</a>
+                </div>
+            </div>
+            <a href="../playable.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Playable Games</a>
+        </div>
+    </nav>
+
+    <!-- Top menu on small screens -->
+    <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+        <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">?</a>
+        <span>Vincent Miller</span>
+    </header>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+        <!-- Header -->
+        <div class="w3-container" style="margin-top:80px" id="showcase">
+            <h1 class="w3-jumbo"><b>Dragonfly Engine</b></h1>
+            <h1 class="w3-xxxlarge w3-text-red"><b>Overview</b></h1>
+            <hr style="width:50px;border:5px solid red" class="w3-round">
+            <p>
+                <b>Description: </b>
+                A 2.5-D game engine. While it is simple, its capabilities are sufficient that a team member and I were able to use it to create our final project for the class.
+                The capabilities of the engine include:
+                <ul>
+                    <li>Loading and rendering ASCII files as sprites.</li>
+                    <li>Sprite frame animation.</li>
+                    <li>Rendering in parallax mode (object size scales depth and position).</li>
+                    <li>Collision detection with oriented bounding boxes.</li>
+                </ul>
+            </p>
+            <p>
+                <b>Links: </b>
+                <ul>
+                    <li><b>Source: </b> I am unable to provide the source for the engine, in accordance with WPI's policy on sharing source code for projects.</li>
+                    <li><b>Game Executable: </b> <a href="../download/DragonflyGameBuild.zip">Direct download</a></li>
+                </ul>
+                
+            </p>
+            <p>
+                <b>Team: </b>
+                The engine itself was a solo project. For the final class project, a game that used the engine, I worked with one partner (Sean Briggs).
+            </p>
+            <p>
+                <b>Technologies Used: </b>
+                <ul>
+                    <li>C++ (Windows)</li>
+                    <li>SFML</li>
+                </ul>
+            </p>
+            <p>
+                <b>Class: </b>
+                Technical Game Development 1 (IMGD 3000)
+            </p>
+            <p>
+                <b>Assignment Requirements: </b>
+                The requirements of this assignment, as well as high-level design, were clearly specified. However, I made several additions of my own:
+                <ul>
+                    <li>2.5-D rendering using a parallax projection.</li>
+                    <li>Support for rotation and scaling of objects, including collision detection.</li>
+                    <li>Joystick and gamepad input support.</li>
+                </ul>
+            </p>
+        </div>
+
+        <!-- Photo grid (modal) -->
+        <div class="w3-row-padding">
+            <div class="w3-half">
+                <img src="../images/screenshots/dragonfly1.png" style="width:100%" onclick="onClick(this)" alt="A scene testing various features such as UI objects and 3D collision detection">
+                <img src="../images/screenshots/dragonfly2.png" style="width:100%" onclick="onClick(this)" alt="A 2D scrolling shooter, initially built on the professor's version of the engine, now running on mine">
+            </div>
+
+            <div class="w3-half">
+                <img src="../images/screenshots/dragonfly3.png" style="width:100%" onclick="onClick(this)" alt="Scrolling text in the intro to our final game">
+                <img src="../images/screenshots/dragonfly4.png" style="width:100%" onclick="onClick(this)" alt="Our final game in action">
+            </div>
+        </div>
+
+        <!-- Modal for full size images on click-->
+        <div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
+            <span class="w3-button w3-black w3-xxlarge w3-display-topright">X</span>
+            <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+                <img id="img01" class="w3-image">
+                <p id="caption"></p>
+            </div>
+        </div>
+
+        <!-- End page content -->
+    </div>
+
+    <!-- W3.CSS Container -->
+    <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></p></div>
+
+    <script>
+// Script to open and close sidebar
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+    </script>
+
+</body>
+</html>

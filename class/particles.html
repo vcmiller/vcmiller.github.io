@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html>
+<title>GPU Particles - Vincent Miller's Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<style>
+    body, h1, h2, h3, h4, h5 {
+        font-family: "Poppins", sans-serif
+    }
+
+    body {
+        font-size: 16px;
+    }
+
+    .w3-half img {
+        margin-bottom: -6px;
+        margin-top: 16px;
+        opacity: 1;
+        cursor: pointer
+    }
+
+        .w3-half img:hover {
+            opacity: 0.8
+        }
+
+    .w3-light-grey img {
+        opacity: 0.8;
+        cursor: pointer
+    }
+
+        .w3-light-grey img:hover {
+            opacity: 0.5
+        }
+</style>
+<body>
+
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar">
+        <br>
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+        <div class="w3-container">
+            <h2 class="w3-padding-64"><b>Vincent Miller</b></h2>
+        </div>
+        <div class="w3-bar-block">
+            <a href="../index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+            <a href="../about.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">About Me</a>
+            <div class="w3-dropdown-hover">
+                <button class="w3-button">Projects <i class="fa fa-caret-down"></i></button>
+                <div class="w3-dropdown-content w3-bar-block">
+                    <a href="../class.html" class="w3-bar-item w3-button">Class</a>
+                    <a href="../personal.html" class="w3-bar-item w3-button">Personal</a>
+                    <a href="../jams.html" class="w3-bar-item w3-button">Game Jams</a>
+                </div>
+            </div>
+            <a href="../playable.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Playable Games</a>
+        </div>
+    </nav>
+
+    <!-- Top menu on small screens -->
+    <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+        <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">?</a>
+        <span>Vincent Miller</span>
+    </header>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+        <!-- Header -->
+        <div class="w3-container" style="margin-top:80px" id="showcase">
+            <h1 class="w3-jumbo"><b>GPU Particles</b></h1>
+            <h1 class="w3-xxxlarge w3-text-red"><b>Overview</b></h1>
+            <hr style="width:50px;border:5px solid red" class="w3-round">
+            <p>
+                <b>Description: </b>
+                An implementation of particle systems in Unity on the GPU. This does not use Unity's built-in particle systems at all. Rather, it stores a list of all particles
+                on the GPU, and uses a compute shader to update them multiple times per frame. The particles are rendered using a geometry shader to expand a point into a quad
+                facing the camera, then a basic vertex/fragment shader. Since the GPU is much faster than the CPU at parallel operations on large amounts of data, our system
+                enabled far more particles than a CPU-implemented solution. In our demo, we had over 1 million particles simulating at 60 FPS on a mid-to-high-end GPU.
+                There are several properties that can be controlled for each particle system:
+                <ul>
+                    <li>Emitter shape: box, sphere, cylinder, and arbitrary mesh</li>
+                    <li>Start color range and linear color animation</li>
+                    <li>Start size range and linear size animation</li>
+                    <li>Start velocity and linear speed animation</li>
+                    <li>Animate color based on speed</li>
+                    <li>Lifetime range</li>
+                    <li>Particle count</li>
+                    <li>Point gravity</li>
+                    <li>Local or world space simulation</li>
+                    <li>Sprite and sprite animation</li>
+                </ul>
+            </p>
+            <p>
+                <b>Links: </b>
+                <ul>
+                    <li><b>Source: </b>I am unable to provide the source for the engine, in accordance with WPI's policy on sharing source code for projects.</li>
+                    <li><b>Build: </b><a href="../download/GPUParticles.zip">Direct download. </a>Note that this will have performance issues on lower-end GPUs.</li>
+                </ul>
+                
+                
+            </p>
+            <p>
+                <b>Team: </b>
+                I had one partner for this project, Erik Cerini.
+            </p>
+            <p>
+                <b>Technologies Used: </b>
+                <ul>
+                    <li>Unity</li>
+                    <li>HLSL Shaders (Compute, Geometry, Vertex, Fragment)</li>
+                </ul>
+            </p>
+            <p>
+                <b>Class: </b>
+                Computer Animation (CS 4732)
+            </p>
+            <p>
+                <b>Assignment Requirements: </b>
+                This assignment was very open ended. We had explored various topics in computer animation, including splines, particles, forward and inverse kinematics, and rigid body physics.
+                The goal of the project was to further explore one of them.
+            </p>
+        
+            <h1 class="w3-xxxlarge w3-text-red"><b>Demo Video</b></h1>
+            <hr style="width:50px;border:5px solid red" class="w3-round">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/eT2RbFG_y4g?rel=0" frameborder="0" allowfullscreen></iframe>
+         </div>
+
+        <!-- Photo grid (modal) -->
+        <div class="w3-row-padding">
+            <div class="w3-half">
+                <img src="../images/screenshots/particles1.png" style="width:100%" onclick="onClick(this)" alt="Two meshes rendered by emitting particles uniformly across all surfaces">
+                <img src="../images/screenshots/particles2.png" style="width:100%" onclick="onClick(this)" alt="Particles orbitting around set points">
+            </div>
+
+            <div class="w3-half">
+                <img src="../images/screenshots/particles3.png" style="width:100%" onclick="onClick(this)" alt="A scene rendered entirely using various particle systems (over 1 million particles)">
+            </div>
+        </div>
+
+        <!-- Modal for full size images on click-->
+        <div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
+            <span class="w3-button w3-black w3-xxlarge w3-display-topright">X</span>
+            <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+                <img id="img01" class="w3-image">
+                <p id="caption"></p>
+            </div>
+        </div>
+
+        <!-- End page content -->
+    </div>
+
+    <!-- W3.CSS Container -->
+    <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></p></div>
+
+    <script>
+// Script to open and close sidebar
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+    </script>
+
+</body>
+</html>
