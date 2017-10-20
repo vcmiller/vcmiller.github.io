@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
-<title>GPU Particles - Vincent Miller's Portfolio</title>
+<title>Spectra - Vincent Miller's Portfolio</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -72,73 +72,48 @@
 
         <!-- Header -->
         <div class="w3-container" style="margin-top:80px" id="showcase">
-            <h1 class="w3-jumbo"><b>GPU Particles</b></h1>
+            <h1 class="w3-jumbo"><b>Spectra</b></h1>
             <h1 class="w3-xxxlarge w3-text-red"><b>Overview</b></h1>
             <hr style="width:50px;border:5px solid red" class="w3-round">
             <p>
                 <b>Description: </b>
-                An implementation of particle systems in Unity on the GPU. This does not use Unity's built-in particle systems at all. Rather, it stores a list of all particles
-                on the GPU, and uses a compute shader to update them multiple times per frame. The particles are rendered using a geometry shader to expand a point into a quad
-                facing the camera, then a basic vertex/fragment shader. Since the GPU is much faster than the CPU at parallel operations on large amounts of data, our system
-                enabled far more particles than a CPU-implemented solution. In our demo, we had over 1 million particles simulating at 60 FPS on a mid-to-high-end GPU.
-                There are several properties that can be controlled for each particle system:
+                After taking Technical Game Development 1, where I developed a 2D ascii game engine in C++, I wanted to go back and try developing an engine again,
+                fixing some of the mistakes I had made working on Aspect and using the knowledge I had gained in the class. Now that I was more comfortable with C++,
+                I used that instead of Java. I also chose to learn and use Vulkan for this project, instead of OpenGL again. While this engine is not as fully-featured
+                as Aspect, I was able to learn Vulkan well enough to support most of the same rendering capabilities. Despite being rather simple, I was able to use
+                this engine for several projects in the class CS 4732 (Computer Animation). The features include:
                 <ul>
-                    <li>Emitter shape: box, sphere, cylinder, and arbitrary mesh</li>
-                    <li>Start color range and linear color animation</li>
-                    <li>Start size range and linear size animation</li>
-                    <li>Start velocity and linear speed animation</li>
-                    <li>Animate color based on speed</li>
-                    <li>Lifetime range</li>
-                    <li>Particle count</li>
-                    <li>Point gravity</li>
-                    <li>Local or world space simulation</li>
-                    <li>Sprite and sprite animation</li>
+                    <li>OBJ mesh loading and rendering</li>
+                    <li>GLSL shaders for fragment lighting, with one pass per light source</li>
+                    <li>Component-oriented programming, similar to Unity</li>
                 </ul>
             </p>
             <p>
                 <b>Links: </b>
                 <ul>
-                    <li><b>Source: </b>I am unable to provide the source, in accordance with WPI's policy on sharing source code for projects.</li>
-                    <li><b>Build: </b><a href="../download/GPUParticles.zip">Direct download. </a>Note that this will have performance issues on lower-end GPUs.</li>
+                    <li><b>Source: </b><a href="https://github.com/vcmiller/Spectra">Git repository</a></li>
                 </ul>
-                
-                
             </p>
             <p>
                 <b>Team: </b>
-                I had one partner for this project, Erik Cerini.
+                This was a solo project.
             </p>
             <p>
                 <b>Technologies Used: </b>
                 <ul>
-                    <li>Unity</li>
-                    <li>HLSL Shaders (Compute, Geometry, Vertex, Fragment)</li>
+                    <li>C++ (Windows)</li>
+                    <li>Vulkan via LunarG SDK</li>
                 </ul>
             </p>
-            <p>
-                <b>Class: </b>
-                Computer Animation (CS 4732)
-            </p>
-            <p>
-                <b>Assignment Requirements: </b>
-                This assignment was very open ended. We had explored various topics in computer animation, including splines, particles, forward and inverse kinematics, and rigid body physics.
-                The goal of the project was to further explore one of them.
-            </p>
-        
-            <h1 class="w3-xxxlarge w3-text-red"><b>Demo Video</b></h1>
-            <hr style="width:50px;border:5px solid red" class="w3-round">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/eT2RbFG_y4g?rel=0" frameborder="0" allowfullscreen></iframe>
-         </div>
+        </div>
 
-        <!-- Photo grid (modal) -->
         <div class="w3-row-padding">
             <div class="w3-half">
-                <img src="../images/screenshots/particles1.png" style="width:100%" onclick="onClick(this)" alt="Two meshes rendered by emitting particles uniformly across all surfaces">
-                <img src="../images/screenshots/particles2.png" style="width:100%" onclick="onClick(this)" alt="Particles orbitting around set points">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/G0WRI8XAZr8?showinfo=0" frameborder="0" allowfullscreen></iframe>
             </div>
 
             <div class="w3-half">
-                <img src="../images/screenshots/particles3.png" style="width:100%" onclick="onClick(this)" alt="A scene rendered entirely using various particle systems (over 1 million particles)">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/q0T5742MsAw?showinfo=0" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
 
@@ -158,24 +133,24 @@
     <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></p></div>
 
     <script>
-// Script to open and close sidebar
-function w3_open() {
-    document.getElementById("mySidebar").style.display = "block";
-    document.getElementById("myOverlay").style.display = "block";
-}
+        // Script to open and close sidebar
+        function w3_open() {
+            document.getElementById("mySidebar").style.display = "block";
+            document.getElementById("myOverlay").style.display = "block";
+        }
 
-function w3_close() {
-    document.getElementById("mySidebar").style.display = "none";
-    document.getElementById("myOverlay").style.display = "none";
-}
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+            document.getElementById("myOverlay").style.display = "none";
+        }
 
-// Modal Image Gallery
-function onClick(element) {
-  document.getElementById("img01").src = element.src;
-  document.getElementById("modal01").style.display = "block";
-  var captionText = document.getElementById("caption");
-  captionText.innerHTML = element.alt;
-}
+        // Modal Image Gallery
+        function onClick(element) {
+            document.getElementById("img01").src = element.src;
+            document.getElementById("modal01").style.display = "block";
+            var captionText = document.getElementById("caption");
+            captionText.innerHTML = element.alt;
+        }
     </script>
 
 </body>
