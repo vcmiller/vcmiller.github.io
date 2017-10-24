@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
-<title>vFrames - Vincent Miller's Portfolio</title>
+<title>.WAV - Vincent Miller's Portfolio</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -72,32 +72,36 @@
 
         <!-- Header -->
         <div class="w3-container" style="margin-top:80px" id="showcase">
-            <h1 class="w3-jumbo"><b>vFrames</b></h1>
+            <h1 class="w3-jumbo"><b>.WAV</b></h1>
             <h1 class="w3-xxxlarge w3-text-red"><b>Overview</b></h1>
             <hr style="width:50px;border:5px solid red" class="w3-round">
             <p>
                 <b>Description: </b>
-                An isometric platformer with a dash-based movement system. Dashing to damage enemies or avoid attacks is one of my favorite mechanics in games.
-                I wanted to create a game that was focused on this single mechanic. All of the games systems are designed around this. In a manner inspired by
-                the recent FPS game Superhot, time only moves when the player dashes. However, whereas Superhot gives the player full control of movement, this 
-                game moves the player forward at a fixed interval. You have a vary limited amount of time to plan your next move, keeping the game fast-paced
-                and requiring fast response time from the player. 
+                This game started out as a game jam project for Global Game Jam 2017. The theme of the jam was about waves, so we made a game where you
+                attack enemies with sound waves. Different waveforms (sine, square, sawtooth) could damage different types.
+                <br /><br />
+                After the game jam, we decided to continue working on the game, adding more diverse weapons, better animations, and dynamic cameras.
+                Instead of just damaging different enemy types, the different waveforms are now entirely different weapons: a sword, a hammer, and a halberd,
+                all of which have different animations. Instead of using an isometric camera, we have different camera zones, where the camera will follow
+                the player character along a spline, and then fade into another camera when the player transitions between zones. We also created a boss enemy
+                for the player to fight. The boss has four different melee attacks and two ranged attacks, and a second phase where it changes its behavior,
+                as well as the look of the arena.
             </p>
             <p>
                 <b>Links: </b>
                 <ul>
-                    <li><b>Source: </b><a href="https://github.com/vcmiller/vframes">Git repository</a></li>
-                    <li><b>Build: </b><a href="http://vcmiller.github.io/games/vframes/">Play in browser</a></li>
+                    <li><b>Source: </b><a href="https://github.com/vcmiller/.wav-2.0">Git repository</a></li>
+                    <li><b>Build: </b><a href="https://drive.google.com/file/d/0B8kgAZ6zZHcMREJ0eV9qNjJjUEU/view?usp=sharing">Download build</a></li>
                 </ul>
             </p>
             <p>
                 <b>Team: </b>
-                This is a solo project.
+                I worked with one main teammate, Sean Briggs. Music was done by David Allen.
             </p>
             <p>
                 <b>Technologies Used: </b>
                 <ul>
-                    <li>Unity</li>
+                    <li>Unreal Engine 4</li>
                 </ul>
             </p>
          </div>
@@ -105,11 +109,11 @@
         <!-- Photo grid (modal) -->
         <div class="w3-row-padding">
             <div class="w3-half">
-                <img src="../images/screenshots/vframes1.png" style="width:100%" onclick="onClick(this)" alt="An enemy which fires bullets during dashes.">
+                <img src="../images/screenshots/wav1.png" style="width:100%" onclick="onClick(this)" alt="The boss. The cracked, glowing floor indicates this is the second phase.">
             </div>
 
             <div class="w3-half">
-                <img src="../images/screenshots/vframes2.png" style="width:100%" onclick="onClick(this)" alt="Moving platforms, which move during dashes.">
+                <img src="../images/screenshots/wav2.png" style="width:100%" onclick="onClick(this)" alt="Two enemies and a checkpoint.">
             </div>
         </div>
 
