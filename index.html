@@ -14,46 +14,38 @@
         font-size: 16px;
     }
 
-    .w3-half img {
+    .w3-third img {
         margin-bottom: -6px;
         margin-top: 16px;
         opacity: 1;
         cursor: pointer
     }
 
-        .w3-half img:hover {
-            opacity: 0.8
-        }
-
-    .w3-light-grey img {
-        opacity: 0.8;
-        cursor: pointer
+    .w3-third img:hover {
+        opacity: 0.8
     }
 
-        .w3-light-grey img:hover {
-            opacity: 0.5
-        }
+    .w3-third {
+        min-width: 400px;
+    }
 </style>
 <body>
 
     <!-- Sidebar/menu -->
-    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar">
+    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:310px;font-weight:bold;" id="mySidebar">
         <br>
         <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
         <div class="w3-container">
-            <h2 class="w3-padding-64"><b>Vincent Miller</b></h3>
+            <p class="w3-padding-16"></p>
+            <h1><b>Vincent Miller</b></h1>
+            <a href="mailto:vcmiller@wpi.edu">vcmiller@wpi.edu</a>
+            <a href="mailto:vmiller0725@gmail.com">vmiller0725@gmail.com</a>
+            <a href="tel:+7742432157">(774) 243-2157</a>
+            <p class="w3-padding-16"></p>
         </div>
         <div class="w3-bar-block">
             <a href="index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
             <a href="about.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">About Me</a>
-            <div class="w3-dropdown-hover">
-                <button class="w3-button">Projects <i class="fa fa-caret-down"></i></button>
-                <div class="w3-dropdown-content w3-bar-block">
-                    <a href="class.html" class="w3-bar-item w3-button">Class</a>
-                    <a href="personal.html" class="w3-bar-item w3-button">Personal</a>
-                    <a href="jams.html" class="w3-bar-item w3-button">Game Jams</a>
-                </div>
-            </div>
             <a href="playable.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Playable Games</a>
         </div>
     </nav>
@@ -83,28 +75,223 @@
                 <li><a href="https://bitbucket.org/vincent_miller/">BitBucket Profile</a></li>
                 <li><a href="https://gamejolt.com/@vincent_miller">GameJolt Page</a></li>
             </ul>
-            <p>Email:</p>
+            <p>Contact:</p>
             <ul>
                 <li><a href="mailto:vmiller0725@gmail.com">vmiller0725@gmail.com</a></li>
                 <li><a href="mailto:vcmiller@wpi.edu">vcmiller@wpi.edu</a></li>
+                <li><a href="tel:+7742432157">(774) 243-2157</a></li>
             </ul>
 
-            <h1 class="w3-xxxlarge w3-text-red"><b>Showcase</b></h1>
+            <h1 class="w3-xxxlarge w3-text-red"><b>Class Projects</b></h1>
             <hr style="width:50px;border:5px solid red" class="w3-round">
+
+            <div class="w3-row-padding">
+                <div class="w3-third">
+                    <a href="class/dragonfly.html">
+                        <div class="w3-display-container">
+                            <img src="images/thumbs/wwd.png" style="width:100%">
+                            <div class="w3-display-middle w3-large w3-center" style="text-shadow:2px 2px 0 #000">
+                                <h1 class="w3-xxxlarge w3-text-light-gray" style="opacity:0.8">DRAGONFLY</h1>
+                                <br />
+                                <h4 class="w3-text-light-gray" style="opacity:0.8">A C++ Ascii Game Engine</h4>
+                                <h5 class="w3-text-light-gray" style="opacity:0.8">Technical Game Development I (IMGD 3000)</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="w3-third">
+                    <a href="class/lettercraze.html">
+                        <div class="w3-display-container">
+                            <img src="images/thumbs/lettercraze.png" style="width:100%">
+                            <div class="w3-display-middle w3-large w3-center" style="text-shadow:2px 2px 0 #000">
+                                <h1 class="w3-xxxlarge w3-text-light-gray" style="opacity:0.8">LETTERCRAZE</h1>
+                                <br />
+                                <h4 class="w3-text-light-gray" style="opacity:0.8">A Java Swing Word Game</h4>
+                                <h5 class="w3-text-light-gray" style="opacity:0.8">Software Engineering (CS 3733)</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="w3-third">
+                    <a href="class/gettysburg.html">
+                        <div class="w3-display-container">
+                            <img src="images/thumbs/gettysburg.png" style="width:100%">
+                            <div class="w3-display-middle w3-large w3-center" style="text-shadow:2px 2px 0 #000">
+                                <h1 class="w3-xxxlarge w3-text-light-gray" style="opacity:0.8">GETTYSBURG</h1>
+                                <br />
+                                <h4 class="w3-text-light-gray" style="opacity:0.8">The Backend for a Complex Board Game</h4>
+                                <h5 class="w3-text-light-gray" style="opacity:0.8">Object Oriented Analysis and Design (CS 4233)</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="w3-third">
+                    <a href="class/gravity.html">
+                        <div class="w3-display-container">
+                            <img src="images/thumbs/gravity.png" style="width:100%">
+                            <div class="w3-display-middle w3-large w3-center" style="text-shadow:2px 2px 0 #000">
+                                <h1 class="w3-xxxlarge w3-text-light-gray" style="opacity:0.8">ACCELEROMETER GRAVITY</h1>
+                                <br />
+                                <h4 class="w3-text-light-gray" style="opacity:0.8">A Demo Using an Arduino and Accelerometer to Control Gravity</h4>
+                                <h5 class="w3-text-light-gray" style="opacity:0.8">Novel Interfaces for Interactive Environments (IMGD 3100)</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="w3-third">
+                    <a href="class/particles.html">
+                        <div class="w3-display-container">
+                            <img src="images/thumbs/particles.png" style="width:100%">
+                            <div class="w3-display-middle w3-large w3-center" style="text-shadow:2px 2px 0 #000">
+                                <h1 class="w3-xxxlarge w3-text-light-gray" style="opacity:0.8">GPU PARTICLES</h1>
+                                <br />
+                                <h4 class="w3-text-light-gray" style="opacity:0.8">GPU Simulated Particles in Unity</h4>
+                                <h5 class="w3-text-light-gray" style="opacity:0.8">Computer Animation (CS 4732)</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="w3-third">
+                    <a href="class/skeletonssuck.html">
+                        <div class="w3-display-container">
+                            <img src="images/thumbs/skeletonssuck.png" style="width:100%">
+                            <div class="w3-display-middle w3-large w3-center" style="text-shadow:2px 2px 0 #000">
+                                <h1 class="w3-xxxlarge w3-text-light-gray" style="opacity:0.8">SKELETONS SUCK</h1>
+                                <br />
+                                <h4 class="w3-text-light-gray" style="opacity:0.8">A 3RD Person Action Game</h4>
+                                <h5 class="w3-text-light-gray" style="opacity:0.8">Technical Game Development 2 (IMGD 4000)</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <br />
+            <h1 class="w3-xxxlarge w3-text-red"><b>Personal Projects</b></h1>
+            <hr style="width:50px;border:5px solid red" class="w3-round">
+
+            <div class="w3-row-padding">
+                <div class="w3-third">
+                    <a href="personal/aspect.html">
+                        <div class="w3-display-container">
+                            <img src="images/thumbs/aspect.png" style="width:100%">
+                            <div class="w3-display-middle w3-large w3-center" style="text-shadow:2px 2px 0 #000">
+                                <h1 class="w3-xxxlarge w3-text-light-gray" style="opacity:0.8">ASPECT</h1>
+                                <br />
+                                <h4 class="w3-text-light-gray" style="opacity:0.8">A Java/OpenGL Game Engine</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="w3-third">
+                    <a href="personal/spectra.html">
+                        <div class="w3-display-container">
+                            <img src="images/thumbs/spectra.png" style="width:100%">
+                            <div class="w3-display-middle w3-large w3-center" style="text-shadow:2px 2px 0 #000">
+                                <h1 class="w3-xxxlarge w3-text-light-gray" style="opacity:0.8">SPECTRA</h1>
+                                <br />
+                                <h4 class="w3-text-light-gray" style="opacity:0.8">The Beginnings of A C++/Vulkan Game Engine</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="w3-third">
+                    <a href="personal/supernova.html">
+                        <div class="w3-display-container">
+                            <img src="images/thumbs/supernova.png" style="width:100%">
+                            <div class="w3-display-middle w3-large w3-center" style="text-shadow:2px 2px 0 #000">
+                                <h1 class="w3-xxxlarge w3-text-light-gray" style="opacity:0.8">SUPERNOVA</h1>
+                                <br />
+                                <h4 class="w3-text-light-gray" style="opacity:0.8">A Space Combat FPS</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="w3-third">
+                    <a href="personal/wav.html">
+                        <div class="w3-display-container">
+                            <img src="images/thumbs/wav.png" style="width:100%">
+                            <div class="w3-display-middle w3-large w3-center" style="text-shadow:2px 2px 0 #000">
+                                <h1 class="w3-xxxlarge w3-text-light-gray" style="opacity:0.8">.WAV</h1>
+                                <br />
+                                <h4 class="w3-text-light-gray" style="opacity:0.8">A Third-Person Action Game</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="w3-third">
+                    <a href="personal/vframes.html">
+                        <div class="w3-display-container">
+                            <img src="images/thumbs/vframes.png" style="width:100%">
+                            <div class="w3-display-middle w3-large w3-center" style="text-shadow:2px 2px 0 #000">
+                                <h1 class="w3-xxxlarge w3-text-light-gray" style="opacity:0.8">vFRAMES</h1>
+                                <br />
+                                <h4 class="w3-text-light-gray" style="opacity:0.8">A Platformer With Dash-Based Movement</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="w3-third">
+                    <a href="personal/tetris.html">
+                        <div class="w3-display-container">
+                            <img src="images/thumbs/tetris.png" style="width:100%">
+                            <div class="w3-display-middle w3-large w3-center" style="text-shadow:2px 2px 0 #000">
+                                <h1 class="w3-xxxlarge w3-text-light-gray" style="opacity:0.8">WORD TETRIS</h1>
+                                <br />
+                                <h4 class="w3-text-light-gray" style="opacity:0.8">A Combination of Tetris and Scrabble</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="w3-third">
+                    <a href="personal/sceletus.html">
+                        <div class="w3-display-container">
+                            <img src="images/thumbs/sceletus.png" style="width:100%">
+                            <div class="w3-display-middle w3-large w3-center" style="text-shadow:2px 2px 0 #000">
+                                <h1 class="w3-xxxlarge w3-text-light-gray" style="opacity:0.8">SCELETUS VENATUS</h1>
+                                <br />
+                                <h4 class="w3-text-light-gray" style="opacity:0.8">A Spooky Endless Runner</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <br />
+            <h1 class="w3-xxxlarge w3-text-red"><b>Game Jam Projects</b></h1>
+            <hr style="width:50px;border:5px solid red" class="w3-round">
+
+            <div class="w3-row-padding">
+
+                <div class="w3-third">
+                    <a href="jams/vladimir.html">
+                        <div class="w3-display-container">
+                            <img src="images/thumbs/vladimir.png" style="width:100%">
+                            <div class="w3-display-middle w3-large w3-center" style="text-shadow:2px 2px 0 #000">
+                                <h1 class="w3-xxxlarge w3-text-light-gray" style="opacity:0.8">VLADIMIR THE CHERNOBYL REINDEER</h1>
+                                <br />
+                                <h4 class="w3-text-light-gray" style="opacity:0.8">A 2D Action Platformer</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="w3-third">
+                    <a href="jams/immersion.html">
+                        <div class="w3-display-container">
+                            <img src="images/thumbs/immersion.png" style="width:100%">
+                            <div class="w3-display-middle w3-large w3-center" style="text-shadow:2px 2px 0 #000">
+                                <h1 class="w3-xxxlarge w3-text-light-gray" style="opacity:0.8">TOTAL IMMERSION</h1>
+                                <br />
+                                <h4 class="w3-text-light-gray" style="opacity:0.8">A Stealth Zombie Game</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
 
         <!-- Photo grid (modal) -->
-        <div class="w3-row-padding">
-            <div class="w3-half">
-                <img src="images/showcase-supernova.png" style="width:100%" onclick="onClick(this)" alt="Supernova, a space combat FPS">
-                <img src="images/showcase-vframes.png" style="width:100%" onclick="onClick(this)" alt="vFrames, a platformer with dash-based movement">
-            </div>
-
-            <div class="w3-half">
-                <img src="images/showcase-aspect.png" style="width:100%" onclick="onClick(this)" alt="Java/OpenGL rigid body physics simulator">
-                <img src="images/showcase-particles.png" style="width:100%" onclick="onClick(this)" alt="GPU particles in Unity using compute and geometry shaders">
-            </div>
-        </div>
+        
 
         <!-- Modal for full size images on click-->
         <div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
@@ -112,60 +299,6 @@
             <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
                 <img id="img01" class="w3-image">
                 <p id="caption"></p>
-            </div>
-        </div>
-
-        <!-- Projects -->
-        <div class="w3-container" id="projects" style="margin-top:75px">
-            <h1 class="w3-xxxlarge w3-text-red"><b>Projects</b></h1>
-            <hr style="width:50px;border:5px solid red" class="w3-round">
-        </div>
-
-        <div class="w3-row-padding w3-grayscale">
-            <div class="w3-col m4 w3-margin-bottom">
-                <a href="class.html">
-                    <div class="w3-light-grey">
-                        <div class="w3-display-container">
-                            <img src="images/section-class.png" alt="Class Projects" style="width:100%">
-                            <div class="w3-display-middle w3-large w3-center" style="width:100%; text-shadow:2px 2px 0 #222">
-                                <h1 class="w3-xxxlarge w3-text-light-gray" style="opacity:0.8">Class Projects</h1>
-                            </div>
-                        </div>
-                        <div class="w3-container">
-                            <p>Projects done for classes in high school and college.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="w3-col m4 w3-margin-bottom">
-                <a href="personal.html">
-                    <div class="w3-light-grey">
-                        <div class="w3-display-container">
-                            <img src="images/section-personal.png" alt="Personal Projects" style="width:100%">
-                            <div class="w3-display-middle w3-large w3-center" style="width:100%; text-shadow:2px 2px 0 #222">
-                                <h1 class="w3-xxxlarge w3-text-light-gray" style="opacity:0.8">Personal Projects</h1>
-                            </div>
-                        </div>
-                        <div class="w3-container">
-                            <p>Longer-term projects done outside of class.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="w3-col m4 w3-margin-bottom">
-                <a href="jams.html">
-                    <div class="w3-light-grey">
-                        <div class="w3-display-container">
-                            <img src="images/section-jams.png" alt="Game Jam Projects" style="width:100%">
-                            <div class="w3-display-middle w3-large w3-center" style="width:100%; text-shadow:2px 2px 0 #222">
-                                <h1 class="w3-xxxlarge w3-text-light-gray" style="opacity:0.8">Game Jams</h1>
-                            </div>
-                        </div>
-                        <div class="w3-container">
-                            <p>Short projects done for game jams and hackathons.</p>
-                        </div>
-                    </div>
-                </a>
             </div>
         </div>
 
