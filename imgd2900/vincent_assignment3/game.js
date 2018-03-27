@@ -32,9 +32,14 @@ along with Perlenspiel. If not, see <http://www.gnu.org/licenses/>.
 /*jslint nomen: true, white: true */
 /*global PS */
 
+// Last bead that was clicked
 var lastX = -1, lastY = -1;
+
+// Current grid size
 var grid = 8;
 
+// Regenerates the grid from the current grid size. All beads will be cleared.
+// Updates the color and background information of all beads to achieve desired look.
 function updateGrid() {
     PS.gridSize( grid, grid );
     PS.gridColor( 0x303030 ); // Perlenspiel gray
@@ -51,6 +56,8 @@ function updateGrid() {
     PS.radius(PS.ALL, PS.ALL, 20);
 }
 
+// Set the color of a given bead to that of selected beads, using fade.
+// Increase the border size and change border color as well.
 function setColored(x, y) {
     PS.fade(x, y, 10);
     PS.borderFade(x, y, 10);
@@ -64,7 +71,7 @@ function setColored(x, y) {
 PS.init = function( system, options ) {
 	"use strict";
 
-	updateGrid();
+	updateGrid(); // Set initial grid style
 
 	PS.audioLoad( "fx_blip", { lock: true } ); // load & lock click sound
 };
@@ -73,14 +80,10 @@ PS.touch = function( x, y, data, options ) {
 	"use strict";
 	var next;
 
-	// Uncomment the following line to inspect parameters
-	// PS.debug( "PS.touch() @ " + x + ", " + y + "\n" );
-	
-	// Change color of touched bed
-	// The default [data] is 0, which equals PS.COLOR_BLACK
-
-
     var path = null;
+	// If this is the first click since the grid was reset, just color
+	// a single point. Otherwise, color a line from the previous point
+	// to the current.
     if (lastX !== -1 && lastY !== -1) {
         path = PS.line(lastX, lastY, x, y);
 
@@ -97,43 +100,34 @@ PS.touch = function( x, y, data, options ) {
 	// Play click sound
 
 	PS.audioPlay( "fx_blip" );
-
-	// Add code here for mouse clicks/touches over a bead
 };
 
 PS.keyDown = function( key, shift, ctrl, options ) {
 	"use strict";
 
-	if (key === PS.KEY_ARROW_RIGHT) {
+	if (key === PS.KEY_ARROW_RIGHT) { // Right arrow, increase grid size
         grid += 2;
 
         if (grid > 32) {
             grid = 32;
         }
 
+		// Clear last click point
         lastX = -1;
         lastY = -1;
 
         updateGrid();
-    } else if (key === PS.KEY_ARROW_LEFT) {
+    } else if (key === PS.KEY_ARROW_LEFT) { // Left arrow, decrease grid size
         grid -= 2;
 
         if (grid < 2) {
             grid = 2;
         }
 
+		// Clear last click point
         lastX = -1;
         lastY = -1;
 
         updateGrid();
     }
-};
-
-PS.keyUp = function( key, shift, ctrl, options ) {
-	"use strict";
-
-	// Uncomment the following line to inspect parameters
-	// PS.debug( "PS.keyUp(): key = " + key + ", shift = " + shift + ", ctrl = " + ctrl + "\n" );
-
-	// Add code here for when a key is released
 };
