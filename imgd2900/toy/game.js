@@ -41,25 +41,28 @@ var game = {
     drawBead: function (x, y) {
         PS.gridPlane(2);
         PS.alpha(x, y, 255);
-        PS.color(x, y, PS.COLOR_BLUE);
+        PS.color(x, y, PS.COLOR_BLACK);
+        PS.radius(x, y, 50);
     },
 
     clearNote: function (x, y) {
         PS.gridPlane(1);
         PS.alpha(x, y, 0);
+        PS.border(x, y, 0);
     },
 
     drawNote: function (x, y) {
         PS.gridPlane(1);
         PS.alpha(x, y, 255);
-        PS.color(x, y, PS.COLOR_MAGENTA);
+        PS.color(x, y, 209, 129, 18);
     },
 
     drawNoteSelect: function (x, y, hovered) {
         if (hovered) {
             PS.gridPlane(1);
             PS.alpha(x, y, 128);
-            PS.color(x, y, PS.COLOR_MAGENTA);
+            PS.border(x, y, 2);
+            PS.borderColor (x, y, 209, 129, 18);
         } else {
             if (game.noteGrid[x][y]) {
                 game.drawNote(x, y);
@@ -72,17 +75,29 @@ var game = {
     drawColNote: function (x, hovered) {
         PS.gridPlane(0);
         if (hovered) {
-            PS.color(x, game.gridHeight, PS.COLOR_BLACK);
-            PS.glyphColor(x, game.gridHeight, PS.COLOR_WHITE);
+            PS.color(x, game.gridHeight, 145, 223, 255);
         } else {
-            PS.color(x, game.gridHeight, PS.COLOR_WHITE);
-            PS.glyphColor(x, game.gridHeight, PS.COLOR_BLACK);
+            PS.color(x, game.gridHeight, 109, 213, 255);
+            PS.radius(x, game.gridHeight, 25);
+            PS.border(x, game.gridHeight, 2);
         }
         PS.glyph(x, game.gridHeight, game.noteOptions[game.notes[x]]);
     },
 
     init: function () {
+        //Set up grid size and bead structure
         PS.gridSize(game.gridWidth, game.gridHeight + 1);
+        PS.color(PS.ALL, PS.ALL, 112, 112, 112);
+        PS.radius(PS.ALL, PS.ALL, 50);
+        PS.border(PS.ALL, PS.ALL, 0);
+        PS.borderColor(PS.ALL, PS.ALL, PS.COLOR_WHITE);
+        PS.glyphColor(PS.ALL, PS.ALL, PS.COLOR_WHITE);
+        //bg color and grid shadow
+        PS.gridColor(78, 78, 79);
+        PS.gridShadow(true, 56, 56, 56);
+        //Set up status text
+        PS.statusText( "Notenspiel. Bouncing bead beats." );
+        PS.statusColor(109, 213, 255);
 
         for (var i = 0; i < game.noteSounds.length; i++) {
             PS.audioLoad(game.noteSounds[i]);
