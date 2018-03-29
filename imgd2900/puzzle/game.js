@@ -31,21 +31,73 @@ class PosColor {
 }
 
 const game = {
-    width: 8,
-    height: 8,
+    width: 0,
+    height: 0,
     paintAmount: 0,
     paintMax: 4,
+    pattern: null,
 
     frameNumber: 0,
+    drawPatternFrames: 120,
+    winFrame: -1,
+    curLevel: -1,
 
-    brush: new PosColor(0, 0, null),
+    brush: null,
     paintGrid: [],
 
-    sources: [
-        new PosColor(7, 0, PS.COLOR_BLUE),
-        new PosColor(7, 7, PS.COLOR_RED),
-        new PosColor(0, 7, PS.COLOR_GREEN)
+    levels: [
+        {
+            width: 4,
+            height: 4,
+            sources: [
+                new PosColor(2, 2, PS.COLOR_BLUE)
+            ],
+            pattern: [
+                [-1, -1, -1, -1],
+                [-1,  0,  0, -1],
+                [-1,  0,  0, -1],
+                [-1, -1, -1, -1]
+            ],
+            brush: new PosColor(0, 0, null)
+        },
+        {
+            width: 6,
+            height: 4,
+            sources: [
+                new PosColor(1, 1, PS.COLOR_RED),
+                new PosColor(4, 2, PS.COLOR_BLUE)
+            ],
+            pattern: [
+                [-1, -1, -1, -1, -1, -1],
+                [-1,  0,  0,  0,  0, -1],
+                [-1,  1,  1,  1,  1, -1],
+                [-1, -1, -1, -1, -1, -1]
+            ],
+            brush: new PosColor(0, 0, null)
+        }
     ],
+
+    sources: null,
+
+    loadLevel: function(level) {
+        game.curLevel = level;
+        level = game.levels[level];
+
+        game.width = level.width;
+        game.height = level.height;
+        game.clearPaintGrid();
+        game.sources = level.sources;
+        game.pattern = level.pattern;
+        
+        game.brush = new PosColor(level.brush.x, level.brush.y, level.brush.color);
+        game.frameNumber = 0;
+
+        for (let i = 0; i < level.sources.length; i++) {
+            game.paintGrid[level.sources[i].x][level.sources[i].y] = level.sources[i].color;
+        }
+
+        game.winFrame = -1;
+    },
 
     paint: function(x, y, color) {
         game.paintGrid[x][y] = color;
@@ -57,6 +109,7 @@ const game = {
         PS.alpha(b.x, b.y, 255);
         PS.color(b.x, b.y, 255, 255, 255);
         PS.radius(b.x, b.y, 0);
+        PS.scale(b.x, b.y, 100);
         if (b.color !== null && game.paintAmount > 0) {
             PS.border(b.x, b.y, game.paintAmount * 3);
             PS.borderColor(b.x, b.y, b.color);
@@ -78,8 +131,10 @@ const game = {
 
             PS.alpha(src.x, src.y, 255);
             PS.color(src.x, src.y, src.color);
+            PS.bgColor(src.x, src.y, src.color);
+            PS.border(src.x, src.y, 10);
             PS.radius(src.x, src.y, 25);
-            PS.border(src.x, src.y, 10 + 5 * Math.sin(game.frameNumber / 5));
+            PS.scale(src.x, src.y, 75 + 15 * Math.sin(game.frameNumber / 5));
             PS.borderColor(src.x, src.y, PS.COLOR_WHITE);
         }
     },
@@ -94,6 +149,44 @@ const game = {
                 }
             }
         }
+    },
+
+    drawPattern: function() {
+        for (var x = 0; x < game.width; x++) {
+            for (var y = 0; y < game.height; y++) {
+                let c = game.pattern[y][x];
+                if (c >= 0) {
+                    c = game.sources[c].color;
+                    PS.scale(x, y, 75);
+                    PS.radius(x, y, 50);
+                    PS.color(x, y, c);
+                    if (game.frameNumber < game.drawPatternFrames - 50) {
+                        PS.alpha(x, y, 255);
+                    } else {
+                        PS.alpha(x, y, (game.drawPatternFrames - game.frameNumber) * 5);
+                    }
+                }
+            }
+        }
+    },
+
+    checkPattern: function() {
+        for (var x = 0; x < game.width; x++) {
+            for (var y = 0; y < game.height; y++) {
+                let c = game.pattern[y][x];
+                if (c >= 0) {
+                    c = game.sources[c].color;
+                } else {
+                    c = null;
+                }
+
+                if (game.paintGrid[x][y] !== c) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     },
 
     moveBrush: function (dx, dy) {
@@ -129,10 +222,13 @@ const game = {
                 painted = true;
             }
 
-            game.render();
-
             if (painted) {
                 game.paintAmount--;
+            }
+
+            if (game.winFrame < 0 && game.checkPattern()) {
+                PS.statusText("You win!");
+                game.winFrame = game.frameNumber;
             }
         }
     },
@@ -140,11 +236,14 @@ const game = {
     tick: function () {
         game.frameNumber++;
 
+        if (game.winFrame >= 0 && game.frameNumber > game.winFrame + 60) {
+            game.loadLevel((game.curLevel + 1) % game.levels.length);
+        }
+
         game.render();
     },
 
-    init: function () {
-
+    clearPaintGrid: function() {
         game.paintGrid = [];
         for (var i = 0; i < game.width; i++) {
             game.paintGrid[i] = [];
@@ -153,6 +252,10 @@ const game = {
                 game.paintGrid[i][j] = null;
             }
         }
+    },
+
+    init: function () {
+        game.loadLevel(0);
 
         PS.timerStart(1, game.tick);
 
@@ -162,9 +265,13 @@ const game = {
     render: function () {
         PS.gridSize(game.width, game.height);
         game.drawBG();
-        game.drawSources();
-        game.drawPaint();
-        game.drawBrush();
+        if (game.frameNumber < game.drawPatternFrames) {
+            game.drawPattern();
+        } else {
+            game.drawSources();
+            game.drawPaint();
+            game.drawBrush();
+        }
     },
 
     keyDown: function (key, shift, ctrl, options) {
