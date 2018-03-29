@@ -134,6 +134,32 @@ var game = {
             game.drawBead(i, pos);
         }
 
+        game.noteGrid[0][7] = true;
+        game.noteGrid[4][3] = true;
+        game.noteGrid[4][7] = true;
+        game.noteGrid[8][7] = true;
+        game.noteGrid[10][7] = true;
+        game.noteGrid[14][3] = true;
+
+        game.notes[0] = 7;
+        game.notes[4] = 3;
+        game.notes[8] = 8;
+        game.notes[10] = 6;
+        game.notes[14] = 5;
+
+        game.drawNote(0, 7);
+        game.drawNote(4, 3);
+        game.drawNote(4, 7);
+        game.drawNote(8, 7);
+        game.drawNote(10, 7);
+        game.drawNote(14, 3);
+
+        game.drawColNote(0, false);
+        game.drawColNote(4, false);
+        game.drawColNote(8, false);
+        game.drawColNote(10, false);
+        game.drawColNote(14, false);
+
         PS.timerStart(game.tickFrames, game.tick);
     },
     
@@ -152,6 +178,7 @@ var game = {
 
 
         if (game.noteGrid[i][bead.pos]) {
+            PS.border(i, bead.pos, 2);
             PS.borderFade(i, bead.pos, 30, { rgb : PS.COLOR_WHITE, onEnd : game.fadeEnd(i, bead.pos) } );
             PS.borderColor(i, bead.pos, 209, 129, 18);
             PS.audioPlay(game.noteSounds[game.notes[i]]);
