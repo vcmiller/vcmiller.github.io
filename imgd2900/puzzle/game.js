@@ -41,6 +41,7 @@ const game = {
     drawPatternFrames: 120,
     winFrame: -1,
     curLevel: -1,
+    moves: 0,
 
     brush: null,
     paintGrid: [],
@@ -74,6 +75,21 @@ const game = {
                 [-1, -1, -1, -1, -1, -1]
             ],
             brush: new PosColor(0, 0, null)
+        },
+        {
+            width: 4,
+            height: 4,
+            sources: [
+                new PosColor(0, 2, PS.COLOR_RED),
+                new PosColor(0, 1, PS.COLOR_BLUE)
+            ],
+            pattern: [
+                [-1,  1,  0, -1],
+                [ 1,  1,  0, -1],
+                [ 0,  1,  0, -1],
+                [-1,  1,  0, -1]
+            ],
+            brush: new PosColor(0, 0, null)
         }
     ],
 
@@ -96,7 +112,10 @@ const game = {
             game.paintGrid[level.sources[i].x][level.sources[i].y] = level.sources[i].color;
         }
 
+        game.moves = 0;
         game.winFrame = -1;
+
+        PS.statusText("Moves: 0");
     },
 
     paint: function(x, y, color) {
@@ -212,6 +231,7 @@ const game = {
                     b.color = src.color;
                     game.paintAmount = game.paintMax;
                     onSrc = true;
+                    PS.audioPlay("fx_drip2");
                     break;
                 }
             }
@@ -219,6 +239,7 @@ const game = {
             var painted = false;
             if (game.paintAmount > 0 && b.color !== null && !onSrc) {
                 game.paint(b.x, b.y, b.color);
+                PS.audioPlay("fx_drip1");
                 painted = true;
             }
 
@@ -226,9 +247,16 @@ const game = {
                 game.paintAmount--;
             }
 
-            if (game.winFrame < 0 && game.checkPattern()) {
-                PS.statusText("You win!");
-                game.winFrame = game.frameNumber;
+            game.moves++;
+
+            if(game.checkPattern()) {
+                if (game.winFrame < 0) {
+                    PS.statusText("You win! (moves: " + game.moves + ")");
+                    game.winFrame = game.frameNumber;
+                    PS.audioPlay("fx_tada");
+                }
+            } else {
+                PS.statusText("Moves: " + game.moves);
             }
         }
     },
@@ -256,6 +284,9 @@ const game = {
 
     init: function () {
         game.loadLevel(0);
+        PS.audioLoad("fx_drip1");
+        PS.audioLoad("fx_drip2");
+        PS.audioLoad("fx_tada");
 
         PS.timerStart(1, game.tick);
 
@@ -276,32 +307,28 @@ const game = {
 
     keyDown: function (key, shift, ctrl, options) {
         switch ( key ) {
-            case PS.KEY_ARROW_UP:
-            case 119: // lower-case w
-            case 87: // upper-case W
-            {
+            case PS.KEY_ARROW_UP: {
                 game.moveBrush( 0, -1 );
                 break;
             }
-            case PS.KEY_ARROW_DOWN:
-            case 115: // lower-case s
-            case 83: // upper-case S
-            {
+            case PS.KEY_ARROW_DOWN: {
                 game.moveBrush( 0, 1 );
                 break;
             }
-            case PS.KEY_ARROW_LEFT:
-            case 97: // lower-case a
-            case 65: // upper-case A
-            {
+            case PS.KEY_ARROW_LEFT: {
                 game.moveBrush( -1, 0 );
                 break;
             }
-            case PS.KEY_ARROW_RIGHT:
-            case 100: // lower-case d
-            case 68: // upper-case D
-            {
+            case PS.KEY_ARROW_RIGHT: {
                 game.moveBrush( 1, 0 );
+                break;
+            }
+            case PS.KEY_ESCAPE: {
+                game.loadLevel(game.curLevel);
+                break;
+            }
+            case PS.KEY_TAB: {
+                game.frameNumber = 60;
                 break;
             }
         }
