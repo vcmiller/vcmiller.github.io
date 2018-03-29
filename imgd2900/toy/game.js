@@ -30,8 +30,8 @@ var game = {
     bounceBeads: [],
     noteGrid: [],
     notes: [],
-    noteOptions: ["A", "B", "C", "D", "E", "F", "G"],
-    noteSounds: ["piano_a4", "piano_b4", "piano_c4", "piano_d4", "piano_e4", "piano_f4", "piano_g4"],
+    noteOptions: ["D", "F", "Bb", "C", "D", "F", "Bb", "C", "D"],
+    noteSounds: ["l_piano_d2", "l_piano_f2", "l_piano_bb2", "l_piano_c2", "l_piano_d3", "l_piano_f3", "l_piano_bb3", "l_piano_c3", "l_piano_d4"],
     
     clearBead: function (x, y) {
         PS.gridPlane(2);
@@ -75,11 +75,15 @@ var game = {
     drawColNote: function (x, hovered) {
         PS.gridPlane(0);
         if (hovered) {
-            PS.color(x, game.gridHeight, 145, 223, 255);
+            PS.color(x, game.gridHeight, PS.COLOR_WHITE);
+            PS.glyphColor(x, game.gridHeight, PS.COLOR_BLACK);
+            PS.borderColor(x, game.gridHeight, PS.COLOR_BLACK);
         } else {
+            PS.glyphColor(x, game.gridHeight, PS.COLOR_WHITE);
             PS.color(x, game.gridHeight, 109, 213, 255);
             PS.radius(x, game.gridHeight, 25);
             PS.border(x, game.gridHeight, 2);
+            PS.borderColor(x, game.gridHeight, PS.COLOR_WHITE);
         }
         PS.glyph(x, game.gridHeight, game.noteOptions[game.notes[x]]);
     },
@@ -98,6 +102,8 @@ var game = {
         //Set up status text
         PS.statusText( "Notenspiel. Bouncing bead beats." );
         PS.statusColor(109, 213, 255);
+        //enable faders
+        PS.fade(PS.ALL, PS.ALL, PS.DEFAULT);
 
         for (var i = 0; i < game.noteSounds.length; i++) {
             PS.audioLoad(game.noteSounds[i]);
@@ -144,10 +150,13 @@ var game = {
 
         bead.pos = nextPos;
 
-        game.drawBead(i, bead.pos);
+
         if (game.noteGrid[i][bead.pos]) {
+            PS.borderFade(i, bead.pos, 30, { rgb : PS.COLOR_WHITE, onEnd : game.fadeEnd(i, bead.pos) } );
+            PS.borderColor(i, bead.pos, 209, 129, 18);
             PS.audioPlay(game.noteSounds[game.notes[i]]);
         }
+        game.drawBead(i, bead.pos);
     },
 
     tick: function () {
@@ -185,6 +194,10 @@ var game = {
         } else {
             game.drawNoteSelect(x, y, false);
         }
+    },
+
+    fadeEnd: function (x, y) {
+        PS.fade(x, y, PS.DEFAULT);
     }
 };
 
