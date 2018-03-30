@@ -77,7 +77,7 @@ const game = {
             brush: new PosColor(0, 0, null)
         },
         {
-            width: 4,
+            width: 5,
             height: 4,
             sources: [
                 new PosColor(0, 2, PS.COLOR_RED),
@@ -88,6 +88,23 @@ const game = {
                 [ 1,  1,  0, -1],
                 [ 0,  1,  0, -1],
                 [-1,  1,  0, -1]
+            ],
+            brush: new PosColor(0, 0, null)
+        },
+        {
+            width: 5,
+            height: 4,
+            sources: [
+                new PosColor(1, 1, PS.COLOR_RED),
+                new PosColor(0, 3, PS.COLOR_BLUE),
+                new PosColor(4, 0, PS.COLOR_BLUE),
+                new PosColor(2, 2, PS.COLOR_BLUE)
+            ],
+            pattern: [
+                [ 1, 1, 1, 0, 1],
+                [ 1, 0, 1, 0, 1],
+                [ 1, 0, 1, 0, 1],
+                [ 1, 0, 1, 1, 1]
             ],
             brush: new PosColor(0, 0, null)
         }
@@ -329,6 +346,10 @@ const game = {
             }
             case PS.KEY_TAB: {
                 game.frameNumber = 60;
+                break;
+            }
+            case PS.KEY_DELETE: {
+                game.loadLevel((game.curLevel + 1) % game.levels.length);
                 break;
             }
         }
