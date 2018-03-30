@@ -107,6 +107,22 @@ const game = {
                 [ 1, 0, 1, 1, 1]
             ],
             brush: new PosColor(0, 0, null)
+        },
+        {
+            width: 4,
+            height: 4,
+            sources: [
+                new PosColor(1, 3, PS.COLOR_GREEN),
+                new PosColor(2, 2, PS.COLOR_BLUE),
+                new PosColor(2, 0, PS.COLOR_YELLOW)
+            ],
+            pattern: [
+                [ 2, 2, 2, 1],
+                [ 1, 1, 1, 1],
+                [ 1, 0, 1, 0],
+                [ 0, 0, 0, 0],
+            ],
+            brush: new PosColor(0, 0, null)
         }
     ],
 
