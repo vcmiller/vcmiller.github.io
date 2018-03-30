@@ -22,12 +22,29 @@ Called once after engine is initialized but before event-polling begins.
 */
 
 // Uncomment the following BLOCK to expose PS.init() event handler:
+
+/* COLOR INFORMATION (RGB values)
+    Grid background (Purple): 209, 183, 251
+    Grid/Canvas Color (off-white): 255,
+ */
+
+
 class PosColor {
     constructor(x, y, color) {
         this.x = x;
         this.y = y;
         this.color = color;
     }
+}
+
+var colors = {
+    purple: [209, 183, 251],
+    white: [255, 251, 203],
+    yellow: [255, 232, 105],
+    pink: [237, 84, 133],
+    blue: [87, 209, 201],
+    brown: [179, 155, 121],
+    green: [137, 225, 137]
 }
 
 const game = {
@@ -51,7 +68,7 @@ const game = {
             width: 4,
             height: 4,
             sources: [
-                new PosColor(2, 2, PS.COLOR_BLUE)
+                new PosColor(2, 2, colors.blue)
             ],
             pattern: [
                 [-1, -1, -1, -1],
@@ -65,8 +82,8 @@ const game = {
             width: 6,
             height: 4,
             sources: [
-                new PosColor(1, 1, PS.COLOR_RED),
-                new PosColor(4, 2, PS.COLOR_BLUE)
+                new PosColor(1, 1, colors.pink),
+                new PosColor(4, 2, colors.blue)
             ],
             pattern: [
                 [-1, -1, -1, -1, -1, -1],
@@ -80,8 +97,8 @@ const game = {
             width: 5,
             height: 4,
             sources: [
-                new PosColor(0, 2, PS.COLOR_RED),
-                new PosColor(0, 1, PS.COLOR_BLUE)
+                new PosColor(0, 2, colors.pink),
+                new PosColor(0, 1, colors.blue)
             ],
             pattern: [
                 [-1,  1,  0, -1],
@@ -95,10 +112,10 @@ const game = {
             width: 5,
             height: 4,
             sources: [
-                new PosColor(1, 1, PS.COLOR_RED),
-                new PosColor(0, 3, PS.COLOR_BLUE),
-                new PosColor(4, 0, PS.COLOR_BLUE),
-                new PosColor(2, 2, PS.COLOR_BLUE)
+                new PosColor(1, 1, colors.pink),
+                new PosColor(0, 3, colors.blue),
+                new PosColor(4, 0, colors.blue),
+                new PosColor(2, 2, colors.blue)
             ],
             pattern: [
                 [ 1, 1, 1, 0, 1],
@@ -112,9 +129,9 @@ const game = {
             width: 4,
             height: 4,
             sources: [
-                new PosColor(1, 3, PS.COLOR_GREEN),
-                new PosColor(2, 2, PS.COLOR_BLUE),
-                new PosColor(2, 0, PS.COLOR_YELLOW)
+                new PosColor(1, 3, colors.green),
+                new PosColor(2, 2, colors.blue),
+                new PosColor(2, 0, colors.yellow)
             ],
             pattern: [
                 [ 2, 2, 2, 1],
@@ -148,6 +165,7 @@ const game = {
         game.moves = 0;
         game.winFrame = -1;
 
+        PS.statusColor(colors.white);
         PS.statusText("Moves: 0");
     },
 
@@ -159,7 +177,7 @@ const game = {
         let b = game.brush;
 
         PS.alpha(b.x, b.y, 255);
-        PS.color(b.x, b.y, 255, 255, 255);
+        PS.color(b.x, b.y, colors.brown);
         PS.radius(b.x, b.y, 0);
         PS.scale(b.x, b.y, 100);
         if (b.color !== null && game.paintAmount > 0) {
@@ -171,7 +189,7 @@ const game = {
     },
 
     drawBG: function () {
-        PS.bgColor(PS.ALL, PS.ALL, 75, 75, 75);
+        PS.bgColor(PS.ALL, PS.ALL, colors.white);
         PS.bgAlpha(PS.ALL, PS.ALL, 255);
         PS.alpha(PS.ALL, PS.ALL, 0);
         PS.border(PS.ALL, PS.ALL, 0);
@@ -187,7 +205,8 @@ const game = {
             PS.border(src.x, src.y, 10);
             PS.radius(src.x, src.y, 25);
             PS.scale(src.x, src.y, 75 + 15 * Math.sin(game.frameNumber / 5));
-            PS.borderColor(src.x, src.y, PS.COLOR_WHITE);
+            PS.borderColor(src.x, src.y, colors.white);
+            PS.gridColor(colors.purple);
         }
     },
 
@@ -204,6 +223,7 @@ const game = {
     },
 
     drawPattern: function() {
+        PS.gridColor(colors.purple);
         for (var x = 0; x < game.width; x++) {
             for (var y = 0; y < game.height; y++) {
                 let c = game.pattern[y][x];
