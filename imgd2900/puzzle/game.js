@@ -79,6 +79,21 @@ const game = {
             brush: new PosColor(0, 0, null)
         },
         {
+            width: 5,
+            height: 5,
+            sources: [
+                new PosColor(1, 1, colors.yellow)
+            ],
+            pattern: [
+                [-1, -1, -1, -1, -1],
+                [-1,  0,  0,  0, -1],
+                [-1,  0,  0,  0, -1],
+                [-1,  0,  0,  0, -1],
+                [-1, -1, -1, -1, -1]
+            ],
+            brush: new PosColor(0, 0, null)
+        },
+        {
             width: 6,
             height: 4,
             sources: [
@@ -105,6 +120,42 @@ const game = {
                 [ 1,  1,  0, -1],
                 [ 0,  1,  0, -1],
                 [-1,  1,  0, -1]
+            ],
+            brush: new PosColor(0, 0, null)
+        },
+        {
+            width: 5,
+            height: 5,
+            sources: [
+                new PosColor(1, 1, colors.pink),
+                new PosColor(2, 2, colors.green),
+                new PosColor(2, 3, colors.blue)
+            ],
+            pattern: [
+                [-1, -1, -1, -1, -1],
+                [-1,  0,  1,  1, -1],
+                [-1,  2,  1,  1, -1],
+                [-1,  2,  2,  0, -1],
+                [-1, -1, -1, -1, -1]
+            ],
+            brush: new PosColor(0, 0, null)
+        },
+        {
+            width: 6,
+            height: 6,
+            sources: [
+                new PosColor(3, 3, colors.pink),
+                new PosColor(2, 4, colors.green),
+                new PosColor(3, 2, colors.blue),
+                new PosColor(4, 1, colors.yellow)
+            ],
+            pattern: [
+                [-1, -1, -1, -1, -1, -1],
+                [-1,  3,  1,  1,  3, -1],
+                [-1,  0,  2,  2,  0, -1],
+                [-1,  0,  0,  0,  0, -1],
+                [-1,  0,  1,  1,  2, -1],
+                [-1, -1, -1, -1, -1, -1]
             ],
             brush: new PosColor(0, 0, null)
         },
@@ -205,7 +256,7 @@ const game = {
             PS.border(src.x, src.y, 10);
             PS.radius(src.x, src.y, 25);
             PS.scale(src.x, src.y, 75 + 15 * Math.sin(game.frameNumber / 5));
-            PS.borderColor(src.x, src.y, colors.white);
+            PS.borderColor(src.x, src.y, colors.brown);
             PS.gridColor(colors.purple);
         }
     },
