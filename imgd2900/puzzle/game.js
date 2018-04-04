@@ -138,38 +138,34 @@ const game = {
             brush: new PosColor(0, 0, null)
         },
         {
-            width: 5,
-            height: 5,
+            width: 3,
+            height: 3,
             sources: [
-                new PosColor(1, 1, colors.pink),
-                new PosColor(2, 2, colors.green),
-                new PosColor(2, 3, colors.blue)
+                new PosColor(0, 0, colors.pink),
+                new PosColor(1, 1, colors.green),
+                new PosColor(1, 2, colors.blue)
             ],
             pattern: [
-                [-1, -1, -1, -1, -1],
-                [-1,  0,  1,  1, -1],
-                [-1,  2,  1,  1, -1],
-                [-1,  2,  2,  0, -1],
-                [-1, -1, -1, -1, -1]
+                [0,  1,  1],
+                [2,  1,  1],
+                [2,  2,  0]
             ],
-            brush: new PosColor(0, 0, null)
+            brush: new PosColor(1, 0, null)
         },
         {
-            width: 6,
-            height: 6,
+            width: 4,
+            height: 4,
             sources: [
-                new PosColor(3, 3, colors.pink),
-                new PosColor(2, 4, colors.green),
-                new PosColor(3, 2, colors.blue),
-                new PosColor(4, 1, colors.yellow)
+                new PosColor(2, 2, colors.pink),
+                new PosColor(1, 3, colors.green),
+                new PosColor(2, 1, colors.blue),
+                new PosColor(3, 0, colors.yellow)
             ],
             pattern: [
-                [-1, -1, -1, -1, -1, -1],
-                [-1,  3,  1,  1,  3, -1],
-                [-1,  0,  2,  2,  0, -1],
-                [-1,  0,  0,  0,  0, -1],
-                [-1,  0,  1,  1,  2, -1],
-                [-1, -1, -1, -1, -1, -1]
+                [3,  1,  1,  3],
+                [0,  2,  2,  0],
+                [0,  0,  0,  0],
+                [0,  1,  1,  2]
             ],
             brush: new PosColor(0, 0, null)
         },
@@ -213,16 +209,15 @@ const game = {
                 new PosColor(3, 2, colors.yellow),
                 new PosColor(2, 5, colors.pink),
                 new PosColor(2, 2, colors.blue),
-                new PosColor(1, 4, colors.blue),
-                new PosColor(3, 4, colors.blue)
+                new PosColor(1, 2, colors.yellow),
             ],
             pattern: [
-                [ 2, -1, -1, -1, 2],
-                [ 2,  2,  2,  2, 2],
-                [ 2,  0,  2,  0, 2],
-                [ 2,  2,  1,  2, 2],
-                [-1,  2,  2,  2,-1],
-                [-1, -1,  1, -1,-1]
+                [2, 0, 0, 0, 2],
+                [2, 2, 2, 2, 2],
+                [2, 0, 2, 0, 2],
+                [2, 2, 2, 2, 2],
+                [0, 2, 1, 2, 0],
+                [0, 0, 1, 0, 0]
             ],
             brush: new PosColor(0, 0, null)
         }
@@ -252,7 +247,7 @@ const game = {
         game.winFrame = -1;
 
         PS.statusColor(colors.white);
-        PS.statusText("Moves: 0");
+        PS.statusText("(Level " + (game.curLevel + 1) + " / " + game.levels.length + ") Moves: 0");
     },
 
     paint: function(x, y, color) {
@@ -414,7 +409,7 @@ const game = {
                     PS.audioPlay("fx_tada");
                 }
             } else {
-                PS.statusText("Moves: " + game.moves);
+                PS.statusText("(Level " + (game.curLevel + 1) + " / " + game.levels.length + ") Moves: " + game.moves);
             }
         }
     },
