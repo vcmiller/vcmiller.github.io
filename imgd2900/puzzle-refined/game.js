@@ -140,22 +140,6 @@ const game = {
         },
         {
             width: 3,
-            height: 4,
-            sources: [
-                new PosColor(0, 2, colors.pink),
-                new PosColor(0, 1, colors.blue)
-            ],
-            pattern: [
-                [ 0,  1,  0],
-                [ 1,  1,  0],
-                [ 0,  1,  0],
-                [ 1,  1,  0]
-            ],
-            brush: new PosColor(0, 0, null),
-            moves: 40
-        },
-        {
-            width: 3,
             height: 3,
             sources: [
                 new PosColor(1, 2, colors.blue),
@@ -169,6 +153,22 @@ const game = {
             ],
             brush: new PosColor(1, 1, null),
             moves: 12
+        },
+        {
+            width: 3,
+            height: 4,
+            sources: [
+                new PosColor(0, 2, colors.pink),
+                new PosColor(0, 1, colors.blue)
+            ],
+            pattern: [
+                [ 0,  1,  0],
+                [ 1,  1,  0],
+                [ 0,  1,  0],
+                [ 1,  1,  0]
+            ],
+            brush: new PosColor(0, 0, null),
+            moves: 32
         },
         {
             width: 3,
