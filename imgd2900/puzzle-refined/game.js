@@ -59,6 +59,7 @@ const game = {
     winFrame: -1,
     curLevel: -1,
     moves: 0,
+    maxMoves: Number.POSITIVE_INFINITY,
 
     brush: null,
     paintGrid: [],
@@ -75,7 +76,8 @@ const game = {
                 [0,  0,  0],
                 [0,  0,  0]
             ],
-            brush: new PosColor(1, 1, null)
+            brush: new PosColor(1, 1, null),
+            moves: 20
         },
         {
             width: 4,
@@ -90,7 +92,8 @@ const game = {
                 [0,  0,  0,  0],
                 [0,  0,  0,  0],
             ],
-            brush: new PosColor(1, 1, null)
+            brush: new PosColor(1, 1, null),
+            moves: 26
         },
         {
             width: 4,
@@ -103,7 +106,8 @@ const game = {
                 [0,  0,  0,  0],
                 [1,  1,  1,  1],
             ],
-            brush: new PosColor(3, 0, null)
+            brush: new PosColor(3, 0, null),
+            moves: 10
         },
         {
             width: 3,
@@ -118,7 +122,8 @@ const game = {
                 [ 0,  1,  0],
                 [ 1,  1,  0]
             ],
-            brush: new PosColor(0, 0, null)
+            brush: new PosColor(0, 0, null),
+            moves: 40
         },
         {
             width: 5,
@@ -135,7 +140,8 @@ const game = {
                 [0, 1, 0, 1, 0],
                 [0, 0, 1, 0, 0]
             ],
-            brush: new PosColor(0, 0, null)
+            brush: new PosColor(0, 0, null),
+            moves: 90
         },
         {
             width: 3,
@@ -150,41 +156,8 @@ const game = {
                 [2,  1,  1],
                 [2,  2,  0]
             ],
-            brush: new PosColor(1, 0, null)
-        },
-        {
-            width: 4,
-            height: 4,
-            sources: [
-                new PosColor(2, 2, colors.pink),
-                new PosColor(1, 3, colors.green),
-                new PosColor(2, 1, colors.blue),
-                new PosColor(3, 0, colors.yellow)
-            ],
-            pattern: [
-                [3,  1,  1,  3],
-                [0,  2,  2,  0],
-                [0,  0,  0,  0],
-                [0,  1,  1,  2]
-            ],
-            brush: new PosColor(0, 0, null)
-        },
-        {
-            width: 5,
-            height: 4,
-            sources: [
-                new PosColor(1, 1, colors.pink),
-                new PosColor(0, 3, colors.blue),
-                new PosColor(4, 0, colors.blue),
-                new PosColor(2, 2, colors.blue)
-            ],
-            pattern: [
-                [ 1, 1, 1, 0, 1],
-                [ 1, 0, 1, 0, 1],
-                [ 1, 0, 1, 0, 1],
-                [ 1, 0, 1, 1, 1]
-            ],
-            brush: new PosColor(0, 0, null)
+            brush: new PosColor(1, 0, null),
+            moves: 14
         },
         {
             width: 4,
@@ -200,7 +173,8 @@ const game = {
                 [ 1, 0, 1, 0],
                 [ 0, 0, 0, 0],
             ],
-            brush: new PosColor(0, 0, null)
+            brush: new PosColor(0, 0, null),
+            moves: 25
         },
         {
             width: 5,
@@ -219,7 +193,44 @@ const game = {
                 [0, 2, 1, 2, 0],
                 [0, 0, 1, 0, 0]
             ],
-            brush: new PosColor(0, 0, null)
+            brush: new PosColor(0, 0, null),
+            moves: 76
+        },
+        {
+            width: 5,
+            height: 4,
+            sources: [
+                new PosColor(1, 1, colors.pink),
+                new PosColor(0, 3, colors.blue),
+                new PosColor(4, 0, colors.blue),
+                new PosColor(2, 2, colors.blue)
+            ],
+            pattern: [
+                [ 1, 1, 1, 0, 1],
+                [ 1, 0, 1, 0, 1],
+                [ 1, 0, 1, 0, 1],
+                [ 1, 0, 1, 1, 1]
+            ],
+            brush: new PosColor(0, 0, null),
+            moves: 31
+        },
+        {
+            width: 4,
+            height: 4,
+            sources: [
+                new PosColor(2, 2, colors.pink),
+                new PosColor(1, 3, colors.green),
+                new PosColor(2, 1, colors.blue),
+                new PosColor(3, 0, colors.yellow)
+            ],
+            pattern: [
+                [3,  1,  1,  3],
+                [0,  2,  2,  0],
+                [0,  0,  0,  0],
+                [0,  1,  1,  2]
+            ],
+            brush: new PosColor(0, 0, null),
+            moves: 36
         }
     ],
 
@@ -245,9 +256,10 @@ const game = {
 
         game.moves = 0;
         game.winFrame = -1;
+        game.maxMoves = level.moves;
 
         PS.statusColor(colors.white);
-        PS.statusText("(Level " + (game.curLevel + 1) + " / " + game.levels.length + ") Moves: 0");
+        PS.statusText("(Level " + (game.curLevel + 1) + " / " + game.levels.length + ") Moves Left: " + game.maxMoves);
     },
 
     paint: function(x, y, color) {
@@ -362,7 +374,12 @@ const game = {
     },
 
     moveBrush: function (dx, dy) {
-        if (dx === 0 && dy === 0) {
+        if ((dx === 0 && dy === 0) || game.winFrame > 0) {
+            return;
+        }
+
+        if (game.moves >= game.maxMoves) {
+            PS.audioPlay("fx_hoot");
             return;
         }
 
@@ -409,7 +426,11 @@ const game = {
                     PS.audioPlay("fx_tada");
                 }
             } else {
-                PS.statusText("(Level " + (game.curLevel + 1) + " / " + game.levels.length + ") Moves: " + game.moves);
+                if (game.moves < game.maxMoves) {
+                    PS.statusText("(Level " + (game.curLevel + 1) + " / " + game.levels.length + ") Moves Left: " + (game.maxMoves - game.moves));
+                } else {
+                    PS.statusText("Out of moves! Press ESC to restart.");
+                }
             }
         }
     },
@@ -440,6 +461,7 @@ const game = {
         PS.audioLoad("fx_drip1");
         PS.audioLoad("fx_drip2");
         PS.audioLoad("fx_tada");
+        PS.audioLoad("fx_hoot");
 
         PS.timerStart(1, game.tick);
 
@@ -449,13 +471,13 @@ const game = {
     render: function () {
         PS.gridSize(game.width, game.height);
         game.drawBG();
-        //if (game.frameNumber < game.drawPatternFrames) {
-        //    game.drawPattern();
-        //} else {
-        game.drawSources();
-        game.drawPaint();
-        game.drawBrush();
-        //}
+        if (game.frameNumber < game.drawPatternFrames) {
+            game.drawPattern();
+        } else {
+            game.drawSources();
+            game.drawPaint();
+            game.drawBrush();
+        }
     },
 
     keyDown: function (key, shift, ctrl, options) {
