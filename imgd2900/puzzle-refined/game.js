@@ -187,6 +187,41 @@ const game = {
             moves: 14
         },
         {
+            width: 4,
+            height: 4,
+            sources: [
+                new PosColor(1, 3, colors.green),
+                new PosColor(2, 2, colors.blue),
+                new PosColor(2, 0, colors.yellow)
+            ],
+            pattern: [
+                [ 2, 2, 2, 1],
+                [ 1, 1, 1, 1],
+                [ 1, 0, 1, 0],
+                [ 0, 0, 0, 0],
+            ],
+            brush: new PosColor(0, 0, null),
+            moves: 25
+        },
+        {
+            width: 5,
+            height: 4,
+            sources: [
+                new PosColor(1, 1, colors.pink),
+                new PosColor(0, 3, colors.blue),
+                new PosColor(4, 0, colors.blue),
+                new PosColor(2, 2, colors.blue)
+            ],
+            pattern: [
+                [ 1, 1, 1, 0, 1],
+                [ 1, 0, 1, 0, 1],
+                [ 1, 0, 1, 0, 1],
+                [ 1, 0, 1, 1, 1]
+            ],
+            brush: new PosColor(0, 0, null),
+            moves: 31
+        },
+        {
             width: 5,
             height: 5,
             sources: [
@@ -203,23 +238,6 @@ const game = {
             ],
             brush: new PosColor(0, 0, null),
             moves: 90
-        },
-        {
-            width: 4,
-            height: 4,
-            sources: [
-                new PosColor(1, 3, colors.green),
-                new PosColor(2, 2, colors.blue),
-                new PosColor(2, 0, colors.yellow)
-            ],
-            pattern: [
-                [ 2, 2, 2, 1],
-                [ 1, 1, 1, 1],
-                [ 1, 0, 1, 0],
-                [ 0, 0, 0, 0],
-            ],
-            brush: new PosColor(0, 0, null),
-            moves: 25
         },
         {
             width: 5,
@@ -240,24 +258,6 @@ const game = {
             ],
             brush: new PosColor(0, 0, null),
             moves: 76
-        },
-        {
-            width: 5,
-            height: 4,
-            sources: [
-                new PosColor(1, 1, colors.pink),
-                new PosColor(0, 3, colors.blue),
-                new PosColor(4, 0, colors.blue),
-                new PosColor(2, 2, colors.blue)
-            ],
-            pattern: [
-                [ 1, 1, 1, 0, 1],
-                [ 1, 0, 1, 0, 1],
-                [ 1, 0, 1, 0, 1],
-                [ 1, 0, 1, 1, 1]
-            ],
-            brush: new PosColor(0, 0, null),
-            moves: 31
         },
         {
             width: 4,
