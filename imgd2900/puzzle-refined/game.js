@@ -107,7 +107,7 @@ const game = {
                 [1,  1,  1,  1],
             ],
             brush: new PosColor(3, 0, null),
-            moves: 10
+            moves: 9
         },
         {
             width: 3,
@@ -126,22 +126,20 @@ const game = {
             moves: 40
         },
         {
-            width: 5,
-            height: 5,
+            width: 3,
+            height: 3,
             sources: [
-                new PosColor(2, 2, colors.green),
-                new PosColor(2, 0, colors.pink),
-                new PosColor(2, 4, colors.pink)
+                new PosColor(1, 2, colors.blue),
+                new PosColor(2, 1, colors.green),
+                new PosColor(1, 0, colors.blue),
             ],
             pattern: [
-                [0, 0, 1, 0, 0],
-                [0, 1, 0, 1, 0],
-                [1, 0, 0, 0, 1],
-                [0, 1, 0, 1, 0],
-                [0, 0, 1, 0, 0]
+                [ 1,  0,  0],
+                [ 1,  1,  1],
+                [ 1,  0,  0]
             ],
-            brush: new PosColor(0, 0, null),
-            moves: 90
+            brush: new PosColor(1, 1, null),
+            moves: 12
         },
         {
             width: 3,
@@ -158,6 +156,24 @@ const game = {
             ],
             brush: new PosColor(1, 0, null),
             moves: 14
+        },
+        {
+            width: 5,
+            height: 5,
+            sources: [
+                new PosColor(2, 2, colors.green),
+                new PosColor(2, 0, colors.pink),
+                new PosColor(2, 4, colors.pink)
+            ],
+            pattern: [
+                [0, 0, 1, 0, 0],
+                [0, 1, 0, 1, 0],
+                [1, 0, 0, 0, 1],
+                [0, 1, 0, 1, 0],
+                [0, 0, 1, 0, 0]
+            ],
+            brush: new PosColor(0, 0, null),
+            moves: 90
         },
         {
             width: 4,
