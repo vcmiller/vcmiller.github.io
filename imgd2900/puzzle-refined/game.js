@@ -96,6 +96,21 @@ const game = {
             moves: 26
         },
         {
+            width: 3,
+            height: 3,
+            sources: [
+                new PosColor(0, 1, colors.green),
+                new PosColor(2, 1, colors.pink)
+            ],
+            pattern: [
+                [0,  0,  1],
+                [0,  1,  1],
+                [0,  1,  1]
+            ],
+            brush: new PosColor(1, 1, null),
+            moves: 14
+        },
+        {
             width: 4,
             height: 2,
             sources: [
@@ -107,6 +122,20 @@ const game = {
                 [1,  1,  1,  1],
             ],
             brush: new PosColor(3, 0, null),
+            moves: 9
+        },
+        {
+            width: 3,
+            height: 2,
+            sources: [
+                new PosColor(0, 0, colors.yellow),
+                new PosColor(1, 0, colors.blue)
+            ],
+            pattern: [
+                [0,  1,  0],
+                [0,  1,  0],
+            ],
+            brush: new PosColor(1, 1, null),
             moves: 9
         },
         {
