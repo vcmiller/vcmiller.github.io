@@ -465,6 +465,14 @@ const game = {
                 game.moveBrush( 1, 0 );
                 break;
             }
+            case PS.KEY_ESCAPE: {
+                game.loadLevel(game.curLevel);
+                break;
+            }
+            case PS.KEY_TAB: {
+                game.frameNumber = 60;
+                break;
+            }
             case PS.KEY_DELETE: {
                 game.loadLevel((game.curLevel + 1) % game.levels.length);
                 break;
