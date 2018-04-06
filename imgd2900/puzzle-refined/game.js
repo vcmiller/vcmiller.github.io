@@ -257,7 +257,7 @@ const game = {
                 [0, 0, 1, 0, 0]
             ],
             brush: new PosColor(0, 0, null),
-            moves: 76
+            moves: 78
         },
         {
             width: 4,
