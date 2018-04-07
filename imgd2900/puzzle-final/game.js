@@ -445,7 +445,7 @@ const game = {
     },
 
     moveBrush: function (dx, dy) {
-        if ((dx === 0 && dy === 0) || game.winFrame > 0) {
+        if ((dx === 0 && dy === 0) || game.winFrame > 0 || game.frameNumber < game.drawPatternFrames) {
             return;
         }
 
