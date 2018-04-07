@@ -321,22 +321,48 @@ const game = {
 
         if (game.paintAmount > 0) {
             PS.glyph(b.x, b.y, game.paintAmount  + "");
+
+            let c = game.paintGrid[b.x][b.y];
+            if (c !== null) {
+                PS.glyphColor(b.x, b.y, c);
+            } else {
+                PS.glyphColor(b.x, b.y, PS.COLOR_WHITE);
+            }
         } else {
-            PS.glyph(b.x, b.y, "");
+            let c = game.pattern[b.y][b.x];
+            if (c !== null && game.paintGrid[b.x][b.y] !== game.sources[c].color) {
+                PS.glyph(b.x, b.y, "~");
+                PS.glyphColor(b.x, b.y, game.sources[c].color);
+            } else {
+                PS.glyph(b.x, b.y, "");
+            }
         }
 
-        let c = game.paintGrid[b.x][b.y];
-        if (c !== null) {
-            PS.glyphColor(b.x, b.y, c);
-        } else {
-            PS.glyphColor(b.x, b.y, PS.COLOR_WHITE);
-        }
 
         if (b.color !== null && game.paintAmount > 0) {
             PS.border(b.x, b.y, game.paintAmount * 6);
             PS.borderColor(b.x, b.y, b.color);
         } else {
             PS.border(b.x, b.y, 0);
+        }
+
+        if (game.curLevel === 0 && game.moves === 0) {
+            PS.glyph(b.x - 1, b.y, 0x2190);
+            PS.glyph(b.x, b.y - 1, 0x2191);
+            PS.glyph(b.x + 1, b.y, 0x2192);
+            PS.glyph(b.x, b.y + 1, 0x2193);
+
+            PS.glyphColor(b.x - 1, b.y, colors.brown);
+            PS.glyphColor(b.x, b.y - 1, colors.brown);
+            PS.glyphColor(b.x + 1, b.y, colors.brown);
+            PS.glyphColor(b.x, b.y + 1, colors.brown);
+
+            let f = Math.sin(game.frameNumber / 10) * 128 + 128;
+
+            PS.glyphAlpha(b.x - 1, b.y, f);
+            PS.glyphAlpha(b.x, b.y - 1, f);
+            PS.glyphAlpha(b.x + 1, b.y, f);
+            PS.glyphAlpha(b.x, b.y + 1, f);
         }
     },
 
