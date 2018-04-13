@@ -51,12 +51,21 @@ class Wall {
     }
 }
 
+class Goal {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
 const game = {
     frameNumber: 0,
     players: [],
     width: 8,
     height: 8,
     splitters: [],
+    goals: [],
+
     walls: [
         new Wall(5, 0),
         new Wall(5, 1),
@@ -73,7 +82,9 @@ const game = {
         game.players[0] = new PlayerBead(0, 0, false, 1);
         game.splitters[0] = new Splitter(5, 5);
         game.splitters[1] = new Splitter(1, 3);
-        game.splitters[2] = new Splitter(2, 7);
+
+        game.goals[0] = new Goal(6, 0);
+        game.goals[1] = new Goal(4, 0);
 
         PS.gridSize(game.width, game.height);
         PS.statusText("Divide");
@@ -137,6 +148,19 @@ const game = {
         }
     },
 
+    drawGoals: function () {
+        for (let i = 0; i < game.goals.length; i++) {
+            let g = game.goals[i];
+            PS.color(g.x, g.y, PS.COLOR_GRAY_LIGHT);
+            PS.borderColor(g.x, g.y, PS.COLOR_BLACK);
+            PS.border(g.x, g.y, 5);
+            PS.radius(g.x, g.y, 25);
+            PS.scale(g.x, g.y, 75);
+            PS.alpha(g.x, g.y, 255);
+            PS.borderAlpha(g.x, g.y, 255);
+        }
+    },
+
     drawSplitters: function () {
         let v = Math.max(30 - (game.frameNumber % 50), 5);
         let b = {
@@ -157,6 +181,7 @@ const game = {
     render: function () {
         game.drawBG();
         game.drawWalls();
+        game.drawGoals();
         game.drawSplitters();
         game.drawPlayer();
     },
