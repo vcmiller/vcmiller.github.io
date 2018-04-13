@@ -89,6 +89,8 @@ const game = {
         PS.gridSize(game.width, game.height);
         PS.statusText("Divide");
 
+        PS.audioLoad("split", { path: "audio/"});
+
         PS.timerStart(1, game.tick);
 
         game.render();
@@ -230,6 +232,7 @@ const game = {
                             p.size /= 2;
                             game.players.push(new PlayerBead(p.x, p.y, !p.mirrored, p.size));
 
+                            PS.audioPlay("split", { path: "audio/"});
                             game.splitters.splice(i, 1);
                             break;
                         }
