@@ -58,6 +58,14 @@ class Goal {
     }
 }
 
+const colors = {
+    yellowOrange: 0xf6921d,
+    redOrange: 0xb14623,
+    lightPurple: 0x602749,
+    darkPurple: 0x3e1c33,
+    black: 0x130912,
+};
+
 const game = {
     frameNumber: 0,
     players: [],
@@ -87,7 +95,9 @@ const game = {
         game.goals[1] = new Goal(4, 0);
 
         PS.gridSize(game.width, game.height);
-        PS.statusText("Divide");
+        PS.gridColor(colors.black);
+        PS.statusColor(colors.yellowOrange);
+        PS.statusText("Divided");
 
         PS.audioLoad("split", { path: "audio/"});
 
@@ -97,8 +107,8 @@ const game = {
     },
 
     drawBG: function () {
-        PS.gridShadow(true, PS.COLOR_GRAY_DARK);
-        PS.bgColor(PS.ALL, PS.ALL, PS.COLOR_GRAY_LIGHT);
+        PS.gridShadow(true, colors.lightPurple);
+        PS.bgColor(PS.ALL, PS.ALL, colors.black);
         PS.bgAlpha(PS.ALL, PS.ALL, 255);
         PS.alpha(PS.ALL, PS.ALL, 0);
         PS.border(PS.ALL, PS.ALL, 0);
@@ -123,19 +133,22 @@ const game = {
                 }
             }
 
+            let dark = colors.lightPurple;
+            let light = colors.yellowOrange;
+
             if (other) {
                 let f = game.frameNumber % 60;
 
                 PS.border(p.x, p.y, (30 - (game.frameNumber % 30)) / 2);
                 if (f < 30) {
-                    PS.color(p.x, p.y, PS.COLOR_WHITE);
-                    PS.borderColor(p.x, p.y, PS.COLOR_BLACK);
+                    PS.color(p.x, p.y, light);
+                    PS.borderColor(p.x, p.y, dark);
                 } else {
-                    PS.color(p.x, p.y, PS.COLOR_BLACK);
-                    PS.borderColor(p.x, p.y, PS.COLOR_WHITE);
+                    PS.color(p.x, p.y, dark);
+                    PS.borderColor(p.x, p.y, light);
                 }
             } else {
-                PS.color(p.x, p.y, p.mirrored ? PS.COLOR_BLACK : PS.COLOR_WHITE);
+                PS.color(p.x, p.y, p.mirrored ? dark : light);
                 PS.border(p.x, p.y, 0);
             }
 
@@ -145,7 +158,7 @@ const game = {
     drawWalls: function () {
         for (let i = 0; i < game.walls.length; i++) {
             let w = game.walls[i];
-            PS.color(w.x, w.y, PS.COLOR_BLACK);
+            PS.color(w.x, w.y, colors.darkPurple);
             PS.alpha(w.x, w.y, 255);
         }
     },
@@ -153,8 +166,8 @@ const game = {
     drawGoals: function () {
         for (let i = 0; i < game.goals.length; i++) {
             let g = game.goals[i];
-            PS.color(g.x, g.y, PS.COLOR_GRAY_LIGHT);
-            PS.borderColor(g.x, g.y, PS.COLOR_BLACK);
+            PS.color(g.x, g.y, colors.black);
+            PS.borderColor(g.x, g.y, colors.redOrange);
             PS.border(g.x, g.y, 5);
             PS.radius(g.x, g.y, 25);
             PS.scale(g.x, g.y, 75);
@@ -176,7 +189,7 @@ const game = {
             let s = game.splitters[i];
             PS.border(s.x, s.y, b);
             PS.scale(s.x, s.y, 50);
-            PS.borderColor(s.x, s.y, PS.COLOR_BLACK);
+            PS.borderColor(s.x, s.y, colors.redOrange);
         }
     },
     
