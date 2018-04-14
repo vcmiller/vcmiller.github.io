@@ -99,6 +99,50 @@ const game = {
                 [0, 0, 0, 0, 0]
             ],
         },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [0, 0, G, 0, 0],
+                [0, W, W, W, 0],
+                [0, 0, S, 0, 0],
+                [0, W, W, W, 0],
+                [0, 0, G, 0, 0]
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [G, 0, 0, 0, S],
+                [0, W, W, W, 0],
+                [G, W, W, W, G],
+                [0, W, W, W, 0],
+                [S, 0, 0, 0, G]
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [0, 0, W, 0, 0],
+                [J, 0, W, 0, 0],
+                [0, 0, G, 0, 0],
+                [0, 0, W, 0, J],
+                [0, 0, W, 0, 0]
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [W, W, W, W, W],
+                [W, W, W, W, W],
+                [0, 0, 0, 0, G],
+                [W, W, W, W, W],
+                [W, W, W, W, W]
+            ],
+        },
     ],
 
     loadLevel: function (index) {
