@@ -37,21 +37,7 @@ class PlayerBead {
     }
 }
 
-class Splitter {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-    }
-}
-
-class Wall {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-    }
-}
-
-class Goal {
+class Position {
     constructor(x, y) {
         this.x = x;
         this.y = y;
@@ -66,47 +52,126 @@ const colors = {
     black: 0x130912,
 };
 
+const P = 1;
+const G = 2;
+const W = 3;
+const S = 4;
+const J = 5;
+
 const game = {
     frameNumber: 0,
     players: [],
-    width: 8,
-    height: 8,
     splitters: [],
-    goals: [],
+    joiners: [],
+    curLevel: -1,
+    winFrame: -1,
+    maxBorder: 0,
 
-    walls: [
-        new Wall(5, 0),
-        new Wall(5, 1),
-        new Wall(5, 2),
-        new Wall(5, 3),
+    levels: [
+        {
+            width: 5,
+            height: 3,
+            layout: [
+                [0, 0, 0, 0, 0],
+                [0, P, 0, G, 0],
+                [0, 0, 0, 0, 0]
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [G, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, S, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, G]
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, J, 0, G],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0]
+            ],
+        },
     ],
+
+    loadLevel: function (index) {
+        if (game.curLevel >= 0) {
+            let l = game.levels[game.curLevel];
+
+            for (let i = 0; i < game.players.length; i++) {
+                let p = game.players[i];
+
+                if (l.layout[p.y][p.x] !== G) {
+                    game.players.splice(i, 1);
+                    i--;
+                }
+            }
+        }
+
+        game.curLevel = index;
+        game.splitters = [];
+        game.joiners = [];
+        game.winFrame = -1;
+        game.frameNumber = 0;
+
+        let l = game.levels[game.curLevel];
+
+        PS.gridSize(l.width, l.height);
+        PS.gridColor(colors.black);
+        PS.statusColor(colors.yellowOrange);
+        PS.fade(PS.ALL, PS.ALL, 0);
+
+        game.maxBorder = PS.border(0, 0, 1000).width;
+        PS.border(0, 0, 0);
+
+        for (let x = 0; x < l.width; x++) {
+            for (let y = 0; y < l.height; y++) {
+                let s = l.layout[y][x];
+                if (s === P) {
+                    game.players = [ new PlayerBead(x, y, false, 8) ];
+                } else if (s === S) {
+                    game.splitters.push(new Position(x, y));
+                } else if (s === J) {
+                    game.joiners.push(new Position(x, y));
+                }
+            }
+        }
+    },
 
     tick: function () {
         game.frameNumber++;
-        game.render();
+
+        if (game.winFrame > 0 && game.frameNumber > game.winFrame + 60) {
+            game.loadLevel((game.curLevel + 1) % game.levels.length);
+        }
+
+        if (game.winFrame < 0) {
+            game.render();
+        }
     },
 
     init: function () {
-        game.players[0] = new PlayerBead(0, 0, false, 1);
-        game.splitters[0] = new Splitter(5, 5);
-        game.splitters[1] = new Splitter(1, 3);
+        game.loadLevel(0);
 
-        game.goals[0] = new Goal(6, 0);
-        game.goals[1] = new Goal(4, 0);
 
-        PS.gridSize(game.width, game.height);
-        PS.gridColor(colors.black);
-        PS.statusColor(colors.yellowOrange);
         PS.statusText("Divided");
 
         PS.audioLoad("split", { path: "audio/"});
+        PS.audioLoad("rejoin", { path: "audio/"});
 
         PS.timerStart(1, game.tick);
 
         game.render();
     },
 
-    drawBG: function () {
+    drawLevel: function () {
         PS.gridShadow(true, colors.lightPurple);
         PS.bgColor(PS.ALL, PS.ALL, colors.black);
         PS.bgAlpha(PS.ALL, PS.ALL, 255);
@@ -114,21 +179,43 @@ const game = {
         PS.border(PS.ALL, PS.ALL, 0);
         PS.scale(PS.ALL, PS.ALL, 100);
         PS.radius(PS.ALL, PS.ALL, 0);
+
+        let l = game.levels[game.curLevel];
+
+        for (let x = 0; x < l.width; x++) {
+            for (let y = 0; y < l.height; y++) {
+                let s = l.layout[y][x];
+
+                if (s === G) {
+                    PS.color(x, y, colors.black);
+                    PS.borderColor(x, y, colors.yellowOrange);
+                    PS.border(x, y, 5);
+                    PS.radius(x, y, 25);
+                    PS.scale(x, y, 75);
+                    PS.alpha(x, y, 255);
+                    PS.borderAlpha(x, y, 255);
+                } else if (s === W) {
+                    PS.color(x, y, colors.darkPurple);
+                    PS.alpha(x, y, 255);
+                }
+            }
+        }
     },
 
     drawPlayer: function () {
+        let l = game.levels[game.curLevel];
         for (let i = 0; i < game.players.length; i++) {
             let p = game.players[i];
 
             PS.alpha(p.x, p.y, 255);
-            PS.scale(p.x, p.y, 75 * p.size);
-            PS.radius(p.x, p.y, 15);
+            PS.scale(p.x, p.y, 100);
+            PS.borderColor(p.x, p.y, colors.black);
 
-            let other = false;
+            let other = null;
             for (let j = 0; j < i; j++) {
                 let p2 = game.players[j];
                 if (p2.x === p.x && p2.y === p.y && p2.mirrored !== p.mirrored) {
-                    other = true;
+                    other = p2;
                     break;
                 }
             }
@@ -137,42 +224,25 @@ const game = {
             let light = colors.yellowOrange;
 
             if (other) {
-                let f = game.frameNumber % 60;
-
-                PS.border(p.x, p.y, (30 - (game.frameNumber % 30)) / 2);
-                if (f < 30) {
+                if (game.frameNumber % 30 < 15) {
                     PS.color(p.x, p.y, light);
-                    PS.borderColor(p.x, p.y, dark);
                 } else {
                     PS.color(p.x, p.y, dark);
-                    PS.borderColor(p.x, p.y, light);
                 }
+
+                let size = (p.size + other.size) / 16;
+                PS.border(p.x, p.y, game.maxBorder * (1 - size));
+                PS.radius(p.x, p.y, 25 * size);
             } else {
                 PS.color(p.x, p.y, p.mirrored ? dark : light);
-                PS.border(p.x, p.y, 0);
+                PS.border(p.x, p.y, game.maxBorder * (1 - p.size / 8));
+                PS.radius(p.x, p.y, 25 * p.size / 8);
             }
 
-        }
-    },
-
-    drawWalls: function () {
-        for (let i = 0; i < game.walls.length; i++) {
-            let w = game.walls[i];
-            PS.color(w.x, w.y, colors.darkPurple);
-            PS.alpha(w.x, w.y, 255);
-        }
-    },
-
-    drawGoals: function () {
-        for (let i = 0; i < game.goals.length; i++) {
-            let g = game.goals[i];
-            PS.color(g.x, g.y, colors.black);
-            PS.borderColor(g.x, g.y, colors.redOrange);
-            PS.border(g.x, g.y, 5);
-            PS.radius(g.x, g.y, 25);
-            PS.scale(g.x, g.y, 75);
-            PS.alpha(g.x, g.y, 255);
-            PS.borderAlpha(g.x, g.y, 255);
+            if (game.winFrame > 0 && l.layout[p.y][p.x] !== G) {
+                PS.fade(p.x, p.y, 30);
+                PS.color(p.x, p.y, colors.black);
+            }
         }
     },
 
@@ -189,19 +259,39 @@ const game = {
             let s = game.splitters[i];
             PS.border(s.x, s.y, b);
             PS.scale(s.x, s.y, 50);
-            PS.borderColor(s.x, s.y, colors.redOrange);
+            PS.borderColor(s.x, s.y, colors.yellowOrange);
+        }
+    },
+
+    drawJoiners: function () {
+        let v = Math.max((game.frameNumber % 50), 5);
+        let b = {
+            top: 0,
+            bottom: 0,
+            left: v,
+            right: v,
+        };
+
+        for (let i = 0; i < game.joiners.length; i++) {
+            let s = game.joiners[i];
+            PS.border(s.x, s.y, b);
+            PS.scale(s.x, s.y, 50);
+            PS.borderColor(s.x, s.y, colors.lightPurple);
         }
     },
     
     render: function () {
-        game.drawBG();
-        game.drawWalls();
-        game.drawGoals();
+        game.drawLevel();
         game.drawSplitters();
+        game.drawJoiners();
         game.drawPlayer();
     },
 
     movePlayer: function (dx, dy) {
+        if (game.winFrame > 0) {
+            return;
+        }
+
         let l = game.players.length;
         let moved = [];
 
@@ -214,17 +304,15 @@ const game = {
 
                 let p = game.players[i];
 
+
                 let dir = p.mirrored ? -1 : 1;
 
                 let nx = p.x + dx * dir;
                 let ny = p.y + dy * dir;
 
+                let level = game.levels[game.curLevel];
+
                 let wall = false;
-                game.walls.forEach(function (w) {
-                    if (w.x === nx && w.y === ny) {
-                        wall = true;
-                    }
-                });
 
                 game.players.forEach(function (p2) {
                     if (p2.x === nx && p2.y === ny && p2.mirrored === p.mirrored) {
@@ -232,24 +320,11 @@ const game = {
                     }
                 });
 
-                if (nx >= 0 && nx < game.width && ny >= 0 && ny < game.height && !wall) {
+                if (nx >= 0 && nx < level.width && ny >= 0 && ny < level.height && !wall && level.layout[ny][nx] !== W) {
                     moved.push(i);
 
                     p.x = nx;
                     p.y = ny;
-
-                    for (let i = 0; i < game.splitters.length; i++) {
-                        let s = game.splitters[i];
-
-                        if (s.x === p.x && s.y === p.y) {
-                            p.size /= 2;
-                            game.players.push(new PlayerBead(p.x, p.y, !p.mirrored, p.size));
-
-                            PS.audioPlay("split", { path: "audio/"});
-                            game.splitters.splice(i, 1);
-                            break;
-                        }
-                    }
                 }
             }
 
@@ -258,6 +333,86 @@ const game = {
             }
         }
 
+        for (let i = 0; i < game.splitters.length; i++) {
+            let s = game.splitters[i];
+
+            let p = null;
+
+            game.players.forEach(function (pl) {
+                if (pl.x === s.x && pl.y === s.y && pl.size > 1) {
+                    p = pl;
+                }
+            });
+
+            if (p !== null) {
+                p.size = Math.round(p.size / 2);
+                game.players.push(new PlayerBead(p.x, p.y, !p.mirrored, p.size));
+
+                PS.audioPlay("split", { path: "audio/"});
+                game.splitters.splice(i, 1);
+                i--;
+            }
+        }
+
+        for (let i = 0; i < game.joiners.length; i++) {
+            let j = game.joiners[i];
+
+            let p1 = -1;
+            let p2 = -1;
+
+            for (let pi = 0; pi < game.players.length; pi++) {
+                let p = game.players[pi];
+                if (p.x === j.x && p.y === j.y) {
+                    if (!p.mirrored) {
+                        p1 = pi;
+                    } else {
+                        p2 = pi;
+                    }
+                }
+            }
+
+            if (p1 >= 0 && p2 >= 0) {
+                let p1obj = game.players[p1];
+                let p2obj = game.players[p2];
+                PS.audioPlay("rejoin", { path: "audio/"});
+
+                p1obj.size += p2obj.size;
+                game.players.splice(p2, 1);
+                game.joiners.splice(j, 1);
+                i--;
+            }
+        }
+
+        if (game.winFrame === -1 && game.hasWon()) {
+            game.winFrame = game.frameNumber;
+
+            game.render();
+        }
+    },
+
+    hasWon: function () {
+        let level = game.levels[game.curLevel];
+        let numGoals = 0;
+        for (let x = 0; x < level.width; x++) {
+            for (let y = 0; y < level.height; y++) {
+                if (level.layout[y][x] === G) {
+                    numGoals++;
+
+                    let found = false;
+                    game.players.forEach(function (p) {
+                        if (p.x === x && p.y === y) {
+                            found = true;
+                        }
+                    });
+
+                    if (!found) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
     },
 
     keyDown: function (key, shift, ctrl, options) {
