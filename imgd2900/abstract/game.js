@@ -28,6 +28,8 @@ Called once after engine is initialized but before event-polling begins.
     Grid/Canvas Color (off-white): 255,
  */
 
+var db = null;
+
 class PlayerBead {
     constructor(x, y, mirrored, size) {
         this.x = x;
@@ -215,6 +217,16 @@ const game = {
         game.frameNumber++;
 
         if (game.winFrame > 0 && game.frameNumber > game.winFrame + 60) {
+            if (db && PS.dbValid( db ) ) {
+                if (game.curLevel === game.levels.length - 1) {
+                    PS.dbEvent( db, "gameover", true );
+                    PS.dbSend( db, "bmoriarty", { discard : true } );
+                    db = null;
+                } else {
+                    PS.dbEvent( db, "levelcomplete", game.curLevel );
+                }
+            }
+
             game.loadLevel((game.curLevel + 1) % game.levels.length);
         }
 
@@ -226,15 +238,26 @@ const game = {
     init: function () {
         game.loadLevel(0);
 
-
         PS.statusText("Divided");
 
         PS.audioLoad("split", { path: "audio/"});
         PS.audioLoad("rejoin", { path: "audio/"});
 
-        PS.timerStart(1, game.tick);
-
         game.render();
+
+        function finishInit() {
+            PS.timerStart(1, game.tick);
+        }
+
+        if ( db ) {
+            db = PS.dbInit( db, { login : finishInit } );
+            if ( db === PS.ERROR ) {
+                db = null;
+            }
+        }
+        else {
+            finishInit();
+        }
     },
 
     drawLevel: function () {
@@ -415,8 +438,13 @@ const game = {
                 game.players.push(new PlayerBead(p.x, p.y, !p.mirrored, p.size));
 
                 PS.audioPlay("split", { path: "audio/"});
+
                 game.splitters.splice(i, 1);
                 i--;
+
+                if ( db && PS.dbValid( db ) ) {
+                    PS.dbEvent( db, "split", game.players.length); // val can be anything
+                }
             }
         }
 
@@ -440,12 +468,17 @@ const game = {
             if (p1 >= 0 && p2 >= 0) {
                 let p1obj = game.players[p1];
                 let p2obj = game.players[p2];
+
                 PS.audioPlay("rejoin", { path: "audio/"});
 
                 p1obj.size += p2obj.size;
                 game.players.splice(p2, 1);
                 game.joiners.splice(j, 1);
                 i--;
+
+                if ( db && PS.dbValid( db ) ) {
+                    PS.dbEvent( db, "join", game.players.length); // val can be anything
+                }
             }
         }
 
@@ -516,3 +549,10 @@ const game = {
 
 PS.init = game.init;
 PS.keyDown = game.keyDown;
+
+PS.shutdown = function( options ) {
+    if ( db && PS.dbValid( db ) ) {
+        PS.dbEvent( db, "shutdown", true );
+        PS.dbSend( db, "bmoriarty", { discard : true } );
+    }
+};
