@@ -242,11 +242,15 @@ const game = {
 
         PS.audioLoad("split", { path: "audio/"});
         PS.audioLoad("rejoin", { path: "audio/"});
+        PS.audioLoad("goal", { path: "audio/"});
+        PS.audioLoad("step", { path: "audio/"});
+        PS.audioLoad("main_game_track", { path: "audio/"});
 
         game.render();
 
         function finishInit() {
             PS.timerStart(1, game.tick);
+            PS.audioPlay("main_game_track", { path: "audio/", loop: true, volume: 0.1 } );
         }
 
         if ( db ) {
@@ -484,8 +488,13 @@ const game = {
 
         if (game.winFrame === -1 && game.hasWon()) {
             game.winFrame = game.frameNumber;
+            PS.audioPlay("goal", { path: "audio/"});
 
             game.render();
+        }
+
+        if (moved.length > 0) {
+            PS.audioPlay("step", { path: "audio/"});
         }
     },
 
