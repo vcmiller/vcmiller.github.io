@@ -68,8 +68,9 @@ const game = {
     joiners: [],
     curLevel: -1,
     winFrame: -1,
+    resetFrame: -1,
     maxBorder: 0,
-    savedLevel: -1,
+    savedLevel: 8,
 
     levels: [
         {
@@ -78,7 +79,7 @@ const game = {
             layout: [
                 [0, 0, 0, 0, 0],
                 [0, P, 0, G, 0],
-                [0, 0, C, 0, 0]
+                [0, 0, 0, 0, 0]
             ],
         },
         {
@@ -169,7 +170,57 @@ const game = {
                 [W, W, G, W, W]
             ],
         },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [W, W, G, W, W],
+                [W, W, 0, W, W],
+                [G, 0, S, 0, G],
+                [0, W, 0, W, W],
+                [S, W, 0, W, W]
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [W, W, 0, 0, G],
+                [0, 0, 0, W, W],
+                [0, W, J, W, 0],
+                [W, W, 0, 0, 0],
+                [S, 0, G, W, W]
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [G, 0, 0, 0, 0],
+                [0, 0, W, 0, 0],
+                [0, W, W, 0, S],
+                [0, 0, W, 0, 0],
+                [G, 0, 0, 0, 0]
+            ],
+        },
     ],
+
+    resetPlayer: function() {
+        if (game.savedLevel >= 0 && game.winFrame < 0) {
+
+            game.loadLevel(game.savedLevel);
+            game.resetFrame = 1;
+
+            let level = game.levels[game.curLevel];
+            for (let x = 0; x < level.width; x++) {
+                for (let y = 0; y < level.height; y++) {
+                    if (level.layout[y][x] === C) {
+                        game.players = [ new PlayerBead(x, y, false, 8) ];
+                    }
+                }
+            }
+        }
+    },
 
     loadLevel: function (index) {
         if (game.curLevel >= 0) {
@@ -232,6 +283,10 @@ const game = {
             game.loadLevel((game.curLevel + 1) % game.levels.length);
         }
 
+        if (game.frameNumber > game.resetFrame + 60) {
+            game.resetFrame = -1;
+        }
+
         if (game.winFrame < 0) {
             game.render();
         }
@@ -274,6 +329,7 @@ const game = {
         PS.border(PS.ALL, PS.ALL, 0);
         PS.scale(PS.ALL, PS.ALL, 100);
         PS.radius(PS.ALL, PS.ALL, 0);
+        PS.borderColor(PS.ALL, PS.ALL, colors.black);
 
         let l = game.levels[game.curLevel];
 
@@ -294,11 +350,15 @@ const game = {
                     PS.alpha(x, y, 255);
                 } else if (s === C) {
                     PS.color(x, y, colors.yellowOrange);
-                    PS.alpha(x, y, 255)
+                    PS.alpha(x, y, 255);
                     PS.radius(x, y, 25);
-                    if (PS.border(x, y, 60 - (game.frameNumber % 120) / 2).width < 15 && game.frameNumber % 2 === 0) {
-                        //PS.color(x, y, colors.black);
+                    if (game.frameNumber % 180 < 90) {
+                        PS.border(x, y, 45 - (game.frameNumber % 90) / 2);
+                    } else {
+                        PS.border(x, y, (game.frameNumber % 90) / 2);
                     }
+
+                    PS.scale(x, y, 75);
                     PS.borderColor(x, y, colors.black);
                 }
             }
@@ -312,7 +372,10 @@ const game = {
 
             PS.alpha(p.x, p.y, 255);
             PS.scale(p.x, p.y, 100);
-            PS.borderColor(p.x, p.y, colors.black);
+
+            if (game.resetFrame < 0) {
+                PS.borderColor(p.x, p.y, colors.black);
+            }
 
             let other = null;
             for (let j = 0; j < i; j++) {
@@ -382,11 +445,33 @@ const game = {
             PS.borderColor(s.x, s.y, colors.lightPurple);
         }
     },
+
+    updateBGFade: function () {
+        let o = PS.unmakeRGB(colors.yellowOrange, []);
+        let o2 = PS.unmakeRGB(colors.black, []);
+
+        let f = (game.frameNumber - game.resetFrame) / 60;
+
+        let r = o2[0] * f + o[0] * (1 - f);
+        let g = o2[1] * f + o[1] * (1 - f);
+        let b = o2[2] * f + o[2] * (1 - f);
+
+        PS.bgAlpha(PS.ALL, PS.ALL, 255);
+        PS.bgColor(PS.ALL, PS.ALL, r, g, b);
+        PS.borderColor(PS.ALL, PS.ALL, r, g, b);
+        PS.color(PS.ALL, PS.ALL, r, g, b);
+        PS.alpha(PS.ALL, PS.ALL, 255);
+
+        game.drawPlayer();
+    },
     
     render: function () {
         game.drawLevel();
         game.drawSplitters();
         game.drawJoiners();
+        if (game.resetFrame > 0) {
+            game.updateBGFade();
+        }
         game.drawPlayer();
     },
 
@@ -430,8 +515,9 @@ const game = {
                     p.y = ny;
 
                     if (level.layout[p.y][p.x] === C) {
-                        game.players = [ new PlayerBead(p.x, p.y, false, 8)];
-
+                        game.savedLevel = game.curLevel;
+                        game.resetPlayer();
+                        game.render();
                         return;
                     }
                 }
@@ -566,6 +652,11 @@ const game = {
             case 68:
             case PS.KEY_ARROW_RIGHT: {
                 game.movePlayer( 1, 0 );
+                break;
+            }
+
+            case 32: {
+                game.resetPlayer();
                 break;
             }
         }
