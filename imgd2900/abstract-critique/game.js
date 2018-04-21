@@ -203,6 +203,17 @@ const game = {
                 [G, 0, 0, 0, 0]
             ],
         },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [0, 0, 0, 0, S],
+                [0, W, W, 0, G],
+                [0, 0, 0, 0, W],
+                [W, 0, W, 0, G],
+                [0, 0, 0, S, W]
+            ],
+        },
     ],
 
     resetPlayer: function() {
@@ -297,8 +308,8 @@ const game = {
 
         PS.statusText("Divided");
 
-        PS.audioLoad("split", { path: "audio/"});
-        PS.audioLoad("rejoin", { path: "audio/"});
+        PS.audioLoad("rip", { path: "audio/"});
+        PS.audioLoad("join", { path: "audio/"});
         PS.audioLoad("goal", { path: "audio/"});
         PS.audioLoad("step", { path: "audio/"});
         PS.audioLoad("main_game_track", { path: "audio/"});
@@ -543,7 +554,7 @@ const game = {
                 p.size = Math.round(p.size / 2);
                 game.players.push(new PlayerBead(p.x, p.y, !p.mirrored, p.size));
 
-                PS.audioPlay("split", { path: "audio/"});
+                PS.audioPlay("rip", { path: "audio/"});
 
                 game.splitters.splice(i, 1);
                 i--;
@@ -575,7 +586,7 @@ const game = {
                 let p1obj = game.players[p1];
                 let p2obj = game.players[p2];
 
-                PS.audioPlay("rejoin", { path: "audio/"});
+                PS.audioPlay("join", { path: "audio/"});
 
                 p1obj.size += p2obj.size;
                 game.players.splice(p2, 1);
