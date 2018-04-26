@@ -78,9 +78,18 @@ const game = {
             width: 5,
             height: 3,
             layout: [
-                [0, 0, 0, 0, 0],
-                [0, P, 0, G, 0],
-                [0, 0, 0, 0, 0]
+                [W, W, W, W, W],
+                [P, 0, G, W, W],
+                [W, W, W, W, W]
+            ],
+        },
+        {
+            width: 5,
+            height: 3,
+            layout: [
+                [W, W, W, W, W],
+                [W, W, 0, 0, G],
+                [W, W, W, W, W]
             ],
         },
         {
@@ -103,6 +112,17 @@ const game = {
                 [W, W, J, 0, G],
                 [W, W, 0, W, W],
                 [W, W, 0, 0, 0]
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [W, W, W, W, W],
+                [W, W, W, W, W],
+                [G, 0, S, 0, 0],
+                [W, W, W, W, W],
+                [W, W, W, W, W]
             ],
         },
         {
@@ -611,6 +631,7 @@ const game = {
                         game.resetPlayer();
                         game.wholesome = false;
                         game.render();
+                        PS.audioPlay("checkpoint", {path: "audio/"});
                         return;
                     }
                 }
@@ -627,8 +648,12 @@ const game = {
             let p = null;
 
             game.players.forEach(function (pl) {
-                if (pl.x === s.x && pl.y === s.y && pl.size > 1) {
-                    p = pl;
+                if (pl.x === s.x && pl.y === s.y) {
+                    if (pl.size > 1) {
+                        p = pl;
+                    } else {
+                        PS.audioPlay("norip", {path: "audio/"});
+                    }
                 }
             });
 
