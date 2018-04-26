@@ -28,7 +28,7 @@ Called once after engine is initialized but before event-polling begins.
     Grid/Canvas Color (off-white): 255,
  */
 
-var db = "divided";
+var db = null;
 
 class PlayerBead {
     constructor(x, y, mirrored, size) {
@@ -71,6 +71,7 @@ const game = {
     resetFrame: -1,
     maxBorder: 0,
     savedLevel: 8,
+    wholesome: true,
 
     levels: [
         {
@@ -214,6 +215,85 @@ const game = {
                 [0, 0, 0, S, W]
             ],
         },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [G, 0, 0, 0, S],
+                [0, 0, 0, 0, 0],
+                [W, W, W, W, W],
+                [0, 0, 0, 0, 0],
+                [G, 0, 0, 0, S]
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [W, W, W, W, W],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, G]
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [0, S, 0, 0, G],
+                [0, W, 0, W, 0],
+                [0, 0, S, W, 0],
+                [0, W, 0, W, 0],
+                [0, 0, G, 0, 0]
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [S, 0, 0, 0, 0],
+                [0, 0, S, S, 0],
+                [0, S, 0, 0, 0],
+                [0, S, 0, S, 0],
+                [G, W, 0, W, G]
+            ],
+        },
+        {
+            width: 7,
+            height: 7,
+            layout: [
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, S, 0, S, 0, W, 0],
+                [0, S, G, S, 0, W, G],
+                [0, S, 0, S, 0, W, 0],
+                [W, S, 0, S, 0, W, 0],
+                [0, 0, 0, S, 0, W, 0],
+            ],
+        },
+        {
+            width: 7,
+            height: 5,
+            layout: [
+                [G, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, S, 0, S, J, S, 0],
+                [0, S, 0, S, 0, S, 0],
+                [0, S, 0, S, 0, 0, 0],
+            ],
+        },
+        {
+            width: 7,
+            height: 5,
+            layout: [
+                [G, 0, G, 0, 0, 0, G],
+                [0, 0, 0, 0, 0, 0, 0],
+                [S, S, S, S, S, S, S],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, G, 0, 0],
+            ],
+        },
     ],
 
     resetPlayer: function() {
@@ -252,6 +332,7 @@ const game = {
         game.joiners = [];
         game.winFrame = -1;
         game.frameNumber = 0;
+        game.wholesome = true;
 
         let l = game.levels[game.curLevel];
 
@@ -359,7 +440,7 @@ const game = {
                 } else if (s === W) {
                     PS.color(x, y, colors.darkPurple);
                     PS.alpha(x, y, 255);
-                } else if (s === C) {
+                } else if (s === C && game.wholesome) {
                     PS.color(x, y, colors.yellowOrange);
                     PS.alpha(x, y, 255);
                     PS.radius(x, y, 25);
@@ -475,7 +556,7 @@ const game = {
 
         game.drawPlayer();
     },
-    
+
     render: function () {
         game.drawLevel();
         game.drawSplitters();
@@ -525,9 +606,10 @@ const game = {
                     p.x = nx;
                     p.y = ny;
 
-                    if (level.layout[p.y][p.x] === C) {
+                    if (level.layout[p.y][p.x] === C && game.wholesome) {
                         game.savedLevel = game.curLevel;
                         game.resetPlayer();
+                        game.wholesome = false;
                         game.render();
                         return;
                     }
