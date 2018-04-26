@@ -549,6 +549,7 @@ const game = {
                         game.savedLevel = game.curLevel;
                         game.resetPlayer();
                         game.render();
+                        PS.audioPlay("checkpoint", {path: "audio/"});
                         return;
                     }
                 }
@@ -565,8 +566,12 @@ const game = {
             let p = null;
 
             game.players.forEach(function (pl) {
-                if (pl.x === s.x && pl.y === s.y && pl.size > 1) {
-                    p = pl;
+                if (pl.x === s.x && pl.y === s.y) {
+                    if (pl.size > 1) {
+                        p = pl;
+                    } else {
+                        PS.audioPlay("norip", {path: "audio/"});
+                    }
                 }
             });
 
