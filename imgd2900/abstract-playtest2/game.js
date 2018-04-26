@@ -70,8 +70,11 @@ const game = {
     winFrame: -1,
     resetFrame: -1,
     maxBorder: 0,
-    savedLevel: 8,
+    savedLevel: 19,
     wholesome: true,
+    dying: null,
+    dyingTime: 0,
+    statusDivide: 0,
 
     levels: [
         {
@@ -242,8 +245,8 @@ const game = {
                 [G, 0, 0, 0, S],
                 [0, 0, 0, 0, 0],
                 [W, W, W, W, W],
-                [0, 0, 0, 0, 0],
-                [G, 0, 0, 0, S]
+                [G, 0, 0, 0, 0],
+                [0, 0, 0, 0, S]
             ],
         },
         {
@@ -272,11 +275,33 @@ const game = {
             width: 5,
             height: 5,
             layout: [
-                [S, 0, 0, 0, 0],
+                [G, 0, 0, 0, 0],
                 [0, 0, S, S, 0],
-                [0, S, 0, 0, 0],
+                [0, W, 0, 0, 0],
                 [0, S, 0, S, 0],
-                [G, W, 0, W, G]
+                [S, W, 0, W, G]
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [0, 0, 0, 0, 0],
+                [0, W, 0, W, 0],
+                [W, W, C, W, 0],
+                [W, W, 0, W, 0],
+                [0, 0, G, 0, 0]
+            ],
+        },
+        {
+            width: 7,
+            height: 5,
+            layout: [
+                [W, W, W, S, W, W, W],
+                [W, W, 0, S, 0, W, W],
+                [0, W, 0, S, 0, 0, 0],
+                [0, 0, 0, S, W, W, 0],
+                [G, W, 0, S, G, 0, 0],
             ],
         },
         {
@@ -284,11 +309,11 @@ const game = {
             height: 7,
             layout: [
                 [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, W, 0],
                 [0, S, 0, S, 0, W, 0],
                 [0, S, G, S, 0, W, G],
                 [0, S, 0, S, 0, W, 0],
-                [W, S, 0, S, 0, W, 0],
+                [0, 0, 0, S, 0, W, 0],
                 [0, 0, 0, S, 0, W, 0],
             ],
         },
@@ -297,21 +322,98 @@ const game = {
             height: 5,
             layout: [
                 [G, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, S, 0, S, J, S, 0],
-                [0, S, 0, S, 0, S, 0],
-                [0, S, 0, S, 0, 0, 0],
+                [0, W, 0, 0, 0, 0, 0],
+                [0, J, 0, S, J, S, 0],
+                [0, W, 0, S, 0, S, 0],
+                [0, 0, 0, S, 0, 0, 0],
             ],
         },
         {
             width: 7,
             height: 5,
             layout: [
-                [G, 0, G, 0, 0, 0, G],
+                [0, 0, G, 0, 0, 0, G],
                 [0, 0, 0, 0, 0, 0, 0],
-                [S, S, S, S, S, S, S],
+                [S, W, S, W, S, W, S],
+                [0, 0, 0, 0, 0, 0, 0],
+                [G, 0, 0, 0, 0, 0, 0],
+            ],
+        },
+        {
+            width: 7,
+            height: 5,
+            layout: [
+                [G, 0, 0, 0, G, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [W, S, W, S, W, S, S],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, G, 0, 0, 0, G],
+            ],
+        },
+        {
+            width: 7,
+            height: 5,
+            layout: [
+                [0, 0, G, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [S, W, S, W, S, W, S],
                 [0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, G, 0, 0],
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [W, W, S, W, S],
+                [0, 0, G, 0, 0],
+                [0, 0, G, 0, 0],
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [G, 0, W, W, G],
+                [0, S, W, W, 0],
+                [0, W, 0, S, 0],
+                [S, 0, 0, S, 0],
+                [G, 0, 0, 0, 0],
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [J, 0, 0, 0, G],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [G, W, W, W, W],
+                [0, W, W, W, W],
+                [0, 0, S, 0, 0],
+                [W, W, W, W, 0],
+                [W, W, W, W, 0]
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [0, 0, 0, W, W],
+                [W, W, 0, W, W],
+                [W, W, J, S, G],
+                [W, W, 0, W, W],
+                [W, W, 0, 0, 0]
             ],
         },
     ],
@@ -353,13 +455,14 @@ const game = {
         game.winFrame = -1;
         game.frameNumber = 0;
         game.wholesome = true;
+        game.statusDivide = 0;
 
         let l = game.levels[game.curLevel];
 
         PS.gridSize(l.width, l.height);
         PS.gridColor(colors.black);
         PS.statusColor(colors.yellowOrange);
-        PS.fade(PS.ALL, PS.ALL, 0);
+        PS.fade(PS.ALL, PS.ALL, PS.DEFAULT);
 
         game.maxBorder = PS.border(0, 0, 1000).width;
         PS.border(0, 0, 0);
@@ -395,11 +498,29 @@ const game = {
             game.loadLevel((game.curLevel + 1) % game.levels.length);
         }
 
+        if (game.dying) {
+            game.dyingTime--;
+            if (game.dyingTime <= 0) {
+                PS.fade(game.dying.x, game.dying.y, 0);
+                game.players.splice(game.players.indexOf(game.dying), 1);
+                game.dying = null;
+
+                if (game.players.length === 0) {
+                    game.render();
+                    PS.gridShadow(false);
+                    PS.fade(PS.ALL, PS.ALL, 30);
+                    PS.color(PS.ALL, PS.ALL, colors.black);
+                    PS.borderFade(PS.ALL, PS.ALL, 30);
+                    PS.borderColor(PS.ALL, PS.ALL, colors.black);
+                }
+            }
+        }
+
         if (game.frameNumber > game.resetFrame + 60) {
             game.resetFrame = -1;
         }
 
-        if (game.winFrame < 0) {
+        if (game.winFrame < 0 && !game.dying && game.players.length > 0) {
             game.render();
         }
     },
@@ -434,6 +555,7 @@ const game = {
     },
 
     drawLevel: function () {
+        PS.fade(PS.ALL, PS.ALL, PS.DEFAULT);
         PS.gridShadow(true, colors.lightPurple);
         PS.bgColor(PS.ALL, PS.ALL, colors.black);
         PS.bgAlpha(PS.ALL, PS.ALL, 255);
@@ -442,6 +564,7 @@ const game = {
         PS.scale(PS.ALL, PS.ALL, 100);
         PS.radius(PS.ALL, PS.ALL, 0);
         PS.borderColor(PS.ALL, PS.ALL, colors.black);
+        PS.color(PS.ALL, PS.ALL, colors.black);
 
         let l = game.levels[game.curLevel];
 
@@ -588,7 +711,7 @@ const game = {
     },
 
     movePlayer: function (dx, dy) {
-        if (game.winFrame > 0) {
+        if (game.winFrame > 0 || game.dying) {
             return;
         }
 
@@ -649,19 +772,23 @@ const game = {
 
             game.players.forEach(function (pl) {
                 if (pl.x === s.x && pl.y === s.y) {
-                    if (pl.size > 1) {
-                        p = pl;
-                    } else {
-                        PS.audioPlay("norip", {path: "audio/"});
-                    }
+                    p = pl;
                 }
             });
 
             if (p !== null) {
-                p.size = Math.round(p.size / 2);
-                game.players.push(new PlayerBead(p.x, p.y, !p.mirrored, p.size));
-
-                PS.audioPlay("rip", { path: "audio/"});
+                if (p.size === 1) {
+                    PS.audioPlay("norip", {path: "audio/"});
+                    game.dying = p;
+                    game.dyingTime = 30;
+                    game.render();
+                    PS.fade(p.x, p.y, 26);
+                    PS.color(p.x, p.y, colors.black);
+                } else {
+                    p.size = Math.round(p.size / 2);
+                    game.players.push(new PlayerBead(p.x, p.y, !p.mirrored, p.size));
+                    PS.audioPlay("rip", { path: "audio/"});
+                }
 
                 game.splitters.splice(i, 1);
                 i--;
@@ -697,7 +824,7 @@ const game = {
 
                 p1obj.size += p2obj.size;
                 game.players.splice(p2, 1);
-                game.joiners.splice(j, 1);
+                game.joiners.splice(i, 1);
                 i--;
 
                 if ( db && PS.dbValid( db ) ) {
