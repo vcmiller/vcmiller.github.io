@@ -28,7 +28,7 @@ Called once after engine is initialized but before event-polling begins.
     Grid/Canvas Color (off-white): 255,
  */
 
-var db = "divided";
+var db = null;
 
 class PlayerBead {
     constructor(x, y, mirrored, size) {
@@ -77,9 +77,18 @@ const game = {
             width: 5,
             height: 3,
             layout: [
-                [0, 0, 0, 0, 0],
-                [0, P, 0, G, 0],
-                [0, 0, 0, 0, 0]
+                [W, W, W, W, W],
+                [P, 0, G, W, W],
+                [W, W, W, W, W]
+            ],
+        },
+        {
+            width: 5,
+            height: 3,
+            layout: [
+                [W, W, W, W, W],
+                [W, W, 0, 0, G],
+                [W, W, W, W, W]
             ],
         },
         {
@@ -102,6 +111,17 @@ const game = {
                 [W, W, J, 0, G],
                 [W, W, 0, W, W],
                 [W, W, 0, 0, 0]
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [W, W, W, W, W],
+                [W, W, W, W, W],
+                [G, 0, S, 0, 0],
+                [W, W, W, W, W],
+                [W, W, W, W, W]
             ],
         },
         {
