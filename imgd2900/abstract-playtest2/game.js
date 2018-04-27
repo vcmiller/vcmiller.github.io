@@ -901,7 +901,7 @@ const game = {
             }
 
             case 32: {
-                game.resetPlayer();
+                //game.resetPlayer();
                 break;
             }
         }
