@@ -28,7 +28,7 @@ Called once after engine is initialized but before event-polling begins.
     Grid/Canvas Color (off-white): 255,
  */
 
-var db = null;
+var db = "divided";
 
 class PlayerBead {
     constructor(x, y, mirrored, size) {
