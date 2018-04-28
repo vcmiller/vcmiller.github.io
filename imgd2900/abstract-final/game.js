@@ -580,6 +580,12 @@ const game = {
         if (game.winFrame < 0 && !game.dying && game.players.length > 0) {
             game.render();
         }
+
+        if (game.wholesome) {
+            PS.statusText("Divided");
+        } else {
+            PS.statusText("SPACE to reset here");
+        }
     },
 
     init: function () {
