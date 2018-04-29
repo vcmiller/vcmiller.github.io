@@ -52,6 +52,8 @@ const colors = {
     lightPurple: 0x602749,
     darkPurple: 0x3e1c33,
     black: 0x130912,
+    splitters: 0xff84ee,
+    joiners: 0xd3ff9e,
 };
 
 const P = 1;
@@ -123,11 +125,44 @@ const game = {
             width: 5,
             height: 5,
             layout: [
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, W, W],
+                [J, 0, S, 0, 0],
+                [0, 0, 0, 0, G],
+                [0, W, W, W, W]
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
                 [W, W, W, W, W],
                 [W, W, W, W, W],
                 [G, 0, S, 0, 0],
+                [W, W, W, W, 0],
+                [W, W, W, W, W]
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [W, W, W, W, W],
+                [W, W, W, W, W],
+                [0, S, 0, S, G],
                 [W, W, W, W, W],
                 [W, W, W, W, W]
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [W, W, 0, 0, 0],
+                [W, W, 0, W, 0],
+                [G, W, C, W, 0],
+                [0, W, 0, W, W],
+                [0, 0, 0, W, W]
             ],
         },
         {
@@ -189,11 +224,11 @@ const game = {
             width: 5,
             height: 5,
             layout: [
-                [W, W, 0, W, W],
-                [W, W, 0, W, W],
-                [W, W, C, W, W],
-                [W, W, 0, W, W],
-                [W, W, G, W, W]
+                [W, W, 0, 0, 0],
+                [W, W, W, W, 0],
+                [0, 0, C, 0, 0],
+                [0, W, W, W, W],
+                [0, 0, G, W, W]
             ],
         },
         {
@@ -723,7 +758,7 @@ const game = {
             let s = game.splitters[i];
             PS.border(s.x, s.y, b);
             PS.scale(s.x, s.y, 50);
-            PS.borderColor(s.x, s.y, colors.yellowOrange);
+            PS.borderColor(s.x, s.y, colors.splitters);
         }
     },
 
@@ -740,7 +775,7 @@ const game = {
             let s = game.joiners[i];
             PS.border(s.x, s.y, b);
             PS.scale(s.x, s.y, 50);
-            PS.borderColor(s.x, s.y, colors.lightPurple);
+            PS.borderColor(s.x, s.y, colors.joiners);
         }
     },
 
