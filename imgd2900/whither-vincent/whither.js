@@ -65,7 +65,10 @@ var W; // global namespace variable
 
 	var gx; // current goal x-pos
 	var gy; // current goal y-pos
+    var g2x;
+    var g2y;
 	var gdelta; // goal alpha delta
+    var g2delta;
 
 	var foods; // list of foods: [x, y]
 
@@ -393,7 +396,10 @@ var W; // global namespace variable
 			asize : 0, // actor size
 
 			gx : 9, gy: 7, // goal x/y
-			gdelta : 32 // goal alpha delta
+			gdelta : 32, // goal alpha delta
+
+			g2x: 1, g2y: 7,
+            g2delta : -32
 		}
 	];
 
@@ -491,6 +497,10 @@ var W; // global namespace variable
 			PS.data( gx, gy, IS_GOAL ); // set id
 		}
 
+		g2x = data.g2x;
+        g2y = data.g2y;
+        g2delta = data.g2delta;
+
 		// Set up walls if any defined
 
 		if ( data.walls !== undefined ) {
@@ -562,6 +572,14 @@ var W; // global namespace variable
 		} );
 	}
 
+    function whiteout () {
+        play = false; // disable play
+        PS.fade(PS.ALL, PS.ALL, 90);
+        PS.color( PS.ALL, PS.ALL, PS.COLOR_WHITE );
+        PS.border( PS.ALL, PS.ALL, 0 );
+        PS.alpha( PS.ALL, PS.ALL, 255 );
+    }
+
 	// Definition of public W object
 
 	W = {
@@ -612,8 +630,11 @@ var W; // global namespace variable
 				len = levelData.length; // check # levels
 				if ( ( level + 1 ) < len ) {
 					level += 1; // loop on last level
-				}
-				start( level ); // next level
+                    start( level ); // next level
+				} else {
+				    whiteout();
+                }
+
 				return;
 			}
 
@@ -663,6 +684,16 @@ var W; // global namespace variable
 					}
 					return;
 				}
+
+				if (asize > 10) {
+                    if (g2x !== undefined) {
+                        PS.color(g2x, g2y, COLOR_GOAL);
+                        PS.border( g2x, g2y, WIDTH_GOAL_BORDER );
+                        PS.borderColor( g2x, g2y, COLOR_GOAL_BORDER );
+                        PS.borderAlpha( g2x, g2y, (asize - 10) * 25.5);
+                        PS.data(g2x, g2y, IS_GOAL);
+                    }
+                }
 			}
 
 			// Change previous actor position to floor
@@ -731,7 +762,7 @@ var W; // global namespace variable
 			}
 		}
 	};
-}() )
+}() );
 
 PS.init = function( system, options )
 {
