@@ -632,6 +632,7 @@ const game = {
         PS.audioLoad("join", { path: "audio/"});
         PS.audioLoad("goal", { path: "audio/"});
         PS.audioLoad("step", { path: "audio/"});
+        PS.audioLoad("appear", {path: "audio/"});
         PS.audioLoad("main_game_track", { path: "audio/"});
 
         game.render();
@@ -858,6 +859,7 @@ const game = {
 
                     if (level.layout[p.y][p.x] === A && game.players.length < game.allyLimit) {
                         game.players.push(new PlayerBead(p.x, p.y, !p.mirrored, 1));
+                        PS.audioPlay("appear", {path: "audio/"})
                     }
                 }
             }
