@@ -125,9 +125,31 @@ const game = {
             width: 5,
             height: 5,
             layout: [
+                [W, 0, 0, 0, G],
+                [W, W, 0, W, W],
+                [W, W, S, 0, 0],
+                [W, W, 0, W, W],
+                [G, 0, 0, 0, 0]
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
+                [W, W, 0, 0, 0],
+                [W, W, 0, W, W],
+                [W, W, G, W, W],
+                [W, W, 0, W, W],
+                [0, 0, 0, W, W]
+            ],
+        },
+        {
+            width: 5,
+            height: 5,
+            layout: [
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, W, W],
-                [J, 0, S, 0, 0],
+                [J, 0, 0, 0, 0],
                 [0, 0, 0, 0, G],
                 [0, W, W, W, W]
             ],
