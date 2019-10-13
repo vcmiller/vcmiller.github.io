@@ -1,0 +1,154 @@
+* {
+    box-sizing: border-box;
+}
+
+body, h1, h2, h3, h4, h5 {
+    font-family: "Poppins", sans-serif
+}
+
+body {
+    font-size: 16px;
+}
+
+.clickimg {
+    padding-bottom: 1em;
+    text-shadow:2px 2px 0 #000
+}
+
+.clickimg img:hover {
+    opacity: 0.8;
+}
+
+.gamedisp {
+    margin:auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    width:90%;
+}
+
+body {
+    background-image: url('images/background.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.grey {
+    background-color: rgba(48, 48, 48, 0.884);
+    color:white;
+}
+
+.shadow {
+    box-shadow: 5px 5px 3px rgba(0, 0, 0, .7);
+}
+
+.lightshadow {
+    box-shadow: 5px 5px 3px rgba(0, 0, 0, .3); 
+}
+
+.noselect {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select:none;
+    user-select:none;
+    -o-user-select:none;
+}
+
+.w3-button {
+    margin:0px;
+}
+
+.nameimg {
+    display: block;
+    margin: 1em;
+    margin-bottom: 0em;
+}
+
+.maincontent {
+    margin:auto;
+}
+
+.contact {
+    text-align: center;
+}
+
+.portrait {
+    display: block;
+    width: 100%;
+    max-width: 30em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .maincontent {
+        width:95%;
+    }
+
+    .w3-button {
+        font-size:.7em;
+    }
+
+    .nameimg {
+        width:80%;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .maincontent {
+        width:90%;
+    }
+
+    .nameimg {
+        width:80%;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .maincontent {
+        width:80%;
+    }
+
+    .nameimg {
+        width:60%;
+        margin-left:inherit;
+        margin-right:inherit;
+        float:left;
+    }
+
+    .contact {
+        float:right;
+        text-align: center;
+        margin-top:2em;
+        margin-right:2em;
+    }
+
+    .contact i {
+        margin-left:0.5em;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .maincontent {
+        width:65%;
+    }
+    
+    .nameimg {
+        width:50%;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .maincontent {
+        width:55%;
+    }
+
+    .nameimg {
+        width:40%;
+    }
+}
