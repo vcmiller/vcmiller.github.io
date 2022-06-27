@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/x-icon" href="favicon.png">
 <style>
     
 </style>
@@ -26,14 +27,14 @@
             <div>
                 <a href="index.html" class="w3-bar-item w3-button w3-white"></i>Home</a>
                 <a href="about.html" class="w3-bar-item w3-button w3-hover-white">About Me</a>
-                <a href="#" class="w3-bar-item w3-button w3-hover-white">Games</a>
+                <a href="games.html" class="w3-bar-item w3-button w3-hover-white">Games</a>
             </div>
         </div>
         <br/>
         <div class="grey shadow" style="overflow: auto">
             <div class="gamedisp" id="game-bnb">
                 <div class="clickimg">
-                    <a href="games/bnb.html">
+                    <a href="https://www.babiesandbasilisks.com">
                         <div class="w3-display-container">
                             <img src="images/showcase-bnb.png" style="width:100%" class="lightshadow">
                         </div>
@@ -44,78 +45,92 @@
                     This was my capstone project in college, which I worked on with a group of four teammates
                     for the duration of our senior year. One VR-wearing player builds a level for up to four other 
                     players to navigate through. These players can choose from four characters with unique abilities, 
-                    while the VR player tries to stop them by placing enemies and traps, and controlling a boss.
+                    while the VR player tries to stop them by placing enemies and traps, and controlling a boss. I was
+                    one of two engineers on the team, and my biggest contributions included the VR level building system,
+                    a secondary audio system enabling non-VR players to hear different audio than the VR player,
+                    and a visual state machine editor in Unity that was used to build the enemy AI.
                 </p>
                 <hr>
             </div>
 
-            <div class="gamedisp" id="game-supernova">
+            <div class="gamedisp" id="game-astral">
                 <div class="clickimg">
-                    <a href="games/supernova.html">
+                    <a href="https://www.astral-horizon.com/">
                         <div class="w3-display-container">
-                            <img src="images/showcase-supernova.png" style="width:100%" class="lightshadow">
-                            <div class="w3-display-middle w3-large w3-center">
-                                <h1 class="w3-xxxlarge w3-text-light-gray noselect" style="opacity:0.8">SUPERNOVA</h1>
-                            </div>
+                            <img src="images/showcase-astral.png" style="width:100%" class="lightshadow">
                         </div>
                     </a>
                 </div>
-                <h4>Supernova: A Space Combat FPS</h4>
+                <h4>Astral Horizon: A Science Fiction FPS</h4>
                 <p>
-                    A space combat game I made during my freshman year of college. 
-                    In Supernova, the player can take control of five different ships:
-                    A small fighter or bomber, or the much larger frigate, destroyer, and carrier.
-                    From a single ship, they take part in a battle between two much larger fleets,
-                    with all other ships acting autonomously.
+                    Astral Horizon is my current personal hobby project. It is a story-focused FPS in an original
+                    SciFi setting. I am still in a fairly early phase of development due to this being something I
+                    only work on in my free time, but I already have solid core mechanics implemented. Current features
+                    include:
+                    <ul>
+                        <li>6-DOF flying movement.</li>
+                        <li>Grounded movement on surfaces pointing in any direction.</li>
+                        <li>Multiple weapon and grenade types.</li>
+                        <li>Multiple enemy types including a miniboss.</li>
+                        <li>Sections in oxygen and in vacuum - this affects sound, enemy detection, and the player's oxygen level.</li>
+                        <li>AI squadmates with several different orders the player can give.</li>
+                        <li>A custom 3D navigation system that enemies and squadmates can use when in 6-DOF flying mode.</li>
+                        <li>A text-based dialogue system.</li>
+                    </ul>
+                   I stream development of Astral Horizon most Saturdays on 
+                    <a href="https://www.twitch.tv/infohazardgames">Twitch</a> and save the streams on
+                    <a href="https://www.youtube.com/playlist?list=PLpnNr8QNHD91LSFE6bsJl6s3GuIZugCRP">Youtube</a>.
                 </p>
                 <hr>
             </div>
 
             <div class="gamedisp" id="game-foresight">
                 <div class="clickimg">
-                    <a href="games/foresight.html">
-                        <div class="w3-display-container">
-                            <img src="images/showcase-foresight.png" style="width:100%" class="lightshadow">
-                            <div class="w3-display-middle w3-large w3-center">
-                                <h1 class="w3-xxxlarge w3-text-light-gray noselect" style="opacity:0.8">FORESIGHT</h1>
-                            </div>
+                    
+                    <div class="w3-display-container">
+                        <img src="images/showcase-foresight.png" style="width:100%" class="lightshadow">
+                        <div class="w3-display-middle w3-large w3-center">
+                            <h1 class="w3-xxxlarge w3-text-light-gray noselect" style="opacity:0.8">FORESIGHT</h1>
                         </div>
-                    </a>
+                    </div>
                 </div>
                 <h4>Foresight: A Surveillance-Themed Detective Game</h4>
                 <p>
                     I worked with a team of four other people my junior year of college to make Foresight,
                     a detective game about government surveillance. Set during the later years of the Cold War,
                     Foresight tasks the player with identifying criminals and Soviet spies by searching through 
-                    various pieces of private information in gameplay inspired by <i>Papers, Please</i>.
+                    various pieces of private information in gameplay inspired by <i>Papers, Please</i>. In this
+                    project, I was the main engineer.
                 </p>
                 <hr>
             </div>
 
-            <div class="gamedisp" id="game-cap">
+            <div class="gamedisp" id="game-wolf">
                 <div class="clickimg">
-                    <a href="games/cap.html">
+                    <a href="https://infohazard.itch.io/wolf">
                         <div class="w3-display-container">
-                            <img src="images/showcase-cap.png" style="width:100%" class="lightshadow">
+                            <img src="images/showcase-wolf.png" style="width:100%" class="lightshadow">
                             <div class="w3-display-middle w3-large w3-center">
-                                <h1 class="w3-xxxlarge w3-text-light-gray noselect" style="opacity:0.8;">LATE STAGE CAP&#8209;ITALISM</h1>
+                                <h1 class="w3-xxxlarge w3-text-light-gray noselect" style="opacity:0.8;">WOLF IN SHEPHARD'S CLOTHING</h1>
                             </div>
                         </div>
                     </a>
                 </div>
-                <h4>Late Stage Cap-italism: A Hat-Thieving Stealth Game</h4>
+                <h4>Wolf in Shepherd's Clothing: A Survival Crafting Card Game</h4>
                 <p>
                     Throughout college, I made a lot of small games at game jams. I made this game with a friend from
-                    college, shortly after graduating, for the 2019 GMTK Game Jam. In Late Stage Cap-italism, you
-                    run a hat shop that has only one hat, and must steal the hat back from your customers each night
-                    in a colorful isometric stealth game.
+                    college, about a year after graduating, for the 2020 GMTK Game Jam. The theme for this game jam was "Out of Control".
+                    In Wolf in Shepherd's Clothing, you play as a farmer who is also a werewolf. You must manage your farm, go exploring,
+                    and craft items in order to keep your werewolf-self at bay, and eventually cure your lycanthropy. At night, you draw
+                    cards to determine what your werefolf-self will do, and as the game advances, the number of werewolf cards you have to
+                    draw each night increases. For this game jam, I was one of two engineers, and additionally did all of the 3D art.
                 </p>
                 <hr>
             </div>
 
             <div class="gamedisp" id="game-divided">
                 <div class="clickimg">
-                    <a href="games/divided.html">
+                    <a href="https://vcmiller.github.io/imgd2900/abstract-final/cover.html">
                         <div class="w3-display-container">
                             <img src="images/showcase-divided.png" style="width:100%" class="lightshadow">
                             <div class="w3-display-middle w3-large w3-center">
@@ -128,7 +143,33 @@
                 <p>
                     I made Divided with one other team member for a game design class in my junior year of college.
                     Divided was an exercise in constraint, since the micro-engine the game was made in is limited
-                    to a small grid of simple shapes.
+                    to a small grid of simple shapes. It is a simple but challenging puzzle game where the player must
+                    navigate a bead through a sequence of levels, often splitting into two or more beads, some of which
+                    have inversted controls.
+                </p>
+                <hr>
+            </div>
+
+            <div class="gamedisp" id="game-supernova">
+                <div class="clickimg">
+                    <a href="https://gamejolt.com/games/supernova/90758">
+                        <div class="w3-display-container">
+                            <img src="images/showcase-supernova.png" style="width:100%" class="lightshadow">
+                            <div class="w3-display-middle w3-large w3-center">
+                                <h1 class="w3-xxxlarge w3-text-light-gray noselect" style="opacity:0.8">SUPERNOVA</h1>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <h4>Supernova: A Space Combat FPS</h4>
+                <p>
+                    A space combat game I made during my freshman year of college.
+                    Working on this project was a major part of how I taught myself Unity and Blender.
+                    In Supernova, the player can take control of five different ships:
+                    A small fighter or bomber, or the much larger frigate, destroyer, and carrier.
+                    From a single ship, they take part in a battle between two much larger fleets,
+                    with all other ships acting autonomously. In addition to building all of the tech,
+                    I also made all the 3D models in the game in Blender.
                 </p>
                 <hr>
             </div>
