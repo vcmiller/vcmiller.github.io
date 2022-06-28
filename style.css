@@ -26,6 +26,24 @@ body {
     width:90%;
 }
 
+.shadowtext {
+    text-shadow: 2px 2px 0 #000;
+}
+
+.shadowtext h1, .shadowtext h2, .shadowtext h3, .shadowtext h4 {
+    font-weight: inherit;
+    font-weight: 100;
+}
+
+.shadowtext h4 {
+    background-color: #0006;
+}
+
+.w3-third {
+    overflow: hidden;
+    padding-bottom: 0px;
+}
+
 body {
     background-image: url('images/background.jpg');
     background-repeat: no-repeat;
@@ -56,6 +74,11 @@ body {
 
 .w3-button {
     margin:0px;
+}
+
+.w3-bar-item {
+    max-width: 32%;
+    text-align: center;
 }
 
 .nameimg {
@@ -98,18 +121,22 @@ body {
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
     .maincontent {
-        width:90%;
+        width:95%;
     }
 
     .nameimg {
         width:80%;
+    }
+    
+    .w3-third {
+        width: 50%;
     }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
     .maincontent {
-        width:80%;
+        width:95%;
     }
 
     .nameimg {
@@ -129,6 +156,10 @@ body {
     .contact i {
         margin-left:0.5em;
     }
+    
+    .w3-third {
+        width: 50%;
+    }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -140,6 +171,10 @@ body {
     .nameimg {
         width:50%;
     }
+
+    .w3-third {
+        width: 50%;
+    }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -150,5 +185,9 @@ body {
 
     .nameimg {
         width:40%;
+    }
+
+    .w3-third {
+        width: 33.33333%;
     }
 }
