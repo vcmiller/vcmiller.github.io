@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<title>GPU Particles - Vincent Miller's Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/x-icon" href="favicon.png">
+<style>
+    
+</style>
+<body>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="maincontent">
+        <!-- Top bar on large screens -->
+        <div class="w3-container grey w3-xlarge shadow" style="margin-bottom: 0px; margin-top:0.25em;">
+            <div style="overflow: auto">
+                <img src="images/name.png" class="nameimg">
+                <div class="contact">
+                    <a href="https://www.linkedin.com/in/vcmiller/"><i class="fa fa-linkedin-square" style="display: inline-block"></i></a>
+                    <a href="mailto:infohazard.games@gmail.com"><i class="fa fa-envelope" style="display: inline-block"></i></a>
+                </div>
+            </div>
+            <div>
+                <a href="index.html" class="w3-bar-item w3-button w3-hover-white"></i>Featured</a>
+                <a href="about.html" class="w3-bar-item w3-button w3-hover-white">About Me</a>
+                <a href="games.html" class="w3-bar-item w3-button w3-white">My Stuff</a>
+            </div>
+        </div>
+        <br/>
+        <div class="grey shadow" style="overflow: auto">
+            <div class="gamedisp">
+                <h4>GPU Particles - A GPU-based particle simulation in Unity</h4>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/eT2RbFG_y4g?rel=0" frameborder="0" allowfullscreen></iframe>
+                <p>Engine: Unity</p>
+                <p>Other Tech: compute shaders, geometry shaders</p>
+                <p>
+                    An implementation of particle systems in Unity on the GPU.
+                    This does not use Unity's built-in particle systems at all.
+                    Rather, it stores a list of all particles on the GPU,
+                    and uses a compute shader to update them one or more times per frame.
+                    The particles are rendered using a geometry shader to expand a point into a quad facing the camera,
+                    then a basic vertex/fragment shader.
+                    <div class="w3-container">
+                        <div class="w3-half">
+                            <img src="images/screenshots/particles1.png" style="width:100%" class="lightshadow">
+                        </div>
+                        <div class="w3-half">
+                            <img src="images/screenshots/particles2.png" style="width:100%" class="lightshadow">
+                        </div>
+                    </div>
+                    Since the GPU is much more suited than the CPU to parallel operations on large amounts of data,
+                    our system enabled far more particles than a CPU-implemented solution.
+                    In our demo, we had over 1 million particles simulating at 60 FPS on a mid-to-high-end GPU.
+                </p>
+                <img src="images/screenshots/particles3.png" style="width:100%" class="lightshadow">
+                <p>
+                    There are several properties that can be controlled for each particle system:
+                    <ul>
+                        <li>Emitter shape: box, sphere, cylinder, and arbitrary mesh</li>
+                        <li>Start color range and linear color animation</li>
+                        <li>Start size range and linear size animation</li>
+                        <li>Start velocity and linear speed animation</li>
+                        <li>Animate color based on speed</li>
+                        <li>Lifetime range</li>
+                        <li>Particle count</li>
+                        <li>Point gravity</li>
+                        <li>Local or world space simulation</li>
+                        <li>Sprite and sprite animation</li>
+                    </ul>
+                </p>
+                <p>
+                    This was my final project for the class Computer Animation, along with
+                    my teammate, Eric Cerini. I was responsible for most of the shader work
+                    in the compute and geometry shaders.
+                </p>
+            </div>
+            
+        </div>
+
+        <!-- End page content -->
+    </div>
+</body>
+</html>

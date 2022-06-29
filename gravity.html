@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<title>Gravity Controller - Vincent Miller's Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/x-icon" href="favicon.png">
+<style>
+    
+</style>
+<body>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="maincontent">
+        <!-- Top bar on large screens -->
+        <div class="w3-container grey w3-xlarge shadow" style="margin-bottom: 0px; margin-top:0.25em;">
+            <div style="overflow: auto">
+                <img src="images/name.png" class="nameimg">
+                <div class="contact">
+                    <a href="https://www.linkedin.com/in/vcmiller/"><i class="fa fa-linkedin-square" style="display: inline-block"></i></a>
+                    <a href="mailto:infohazard.games@gmail.com"><i class="fa fa-envelope" style="display: inline-block"></i></a>
+                </div>
+            </div>
+            <div>
+                <a href="index.html" class="w3-bar-item w3-button w3-hover-white"></i>Featured</a>
+                <a href="about.html" class="w3-bar-item w3-button w3-hover-white">About Me</a>
+                <a href="games.html" class="w3-bar-item w3-button w3-white">My Stuff</a>
+            </div>
+        </div>
+        <br/>
+        <div class="grey shadow" style="overflow: auto">
+            <div class="gamedisp">
+                <h4>Gravity Controller - A novel interface for controlling gravity in a game</h4>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/Sv_iwkQ5i7c?rel=0" frameborder="0" allowfullscreen></iframe>
+                <p>Engine: Unity</p>
+                <p>Other Tools: Arduino, accelerometer, analog joystick</p>
+                <p>Assets from <a href="wav.html">.WAV</a></p>
+                <p>
+                    This project was a tech demo I built as my final project in a class about novel interfaces.
+                    It is a 2D platformer/action game where the player controls gravity by rotating an accelerometer.
+                    Other actions (movement and attacking) are done through a joystick and buttons attached to the Arduino.
+                    Measurements from the accelerometer and other inputs are collected by the Arduino,
+                    which is connected to the computer via USB.
+                    In the game, a serial connection is opened, through which the accelerometer values are read.
+                </p>
+                
+                <div class="w3-container">
+                    <div class="w3-half">
+                        <img src="images/screenshots/gravity2.png" style="width:100%" class="lightshadow">
+                    </div>
+                    <div class="w3-half">
+                        <img src="images/screenshots/gravity3.png" style="width:100%" class="lightshadow">
+                    </div>
+                </div>
+                <p>
+                    In the game, the simple enemies have shields that make direct attack impossible.
+                    By manipulating gravity (through rotating the controller), the player can get
+                    behind these enemies to destroy them. Manipulating gravity is also necessary to
+                    move through the level.
+                </p>
+                <img src="images/screenshots/gravity1.png" style="width:100%" class="lightshadow">
+                <p>
+                    This was a solo project, so all of the code and the physical controller were built by me.
+                </p>
+            </div>
+            
+        </div>
+
+        <!-- End page content -->
+    </div>
+</body>
+</html>
